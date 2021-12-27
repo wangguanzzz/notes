@@ -23,3 +23,6 @@ install heroku
 ```
 cnpm install -g heroku
 ```
+
+## heroku push
+if meet cannot resovle git.heroku.com, need to manually add heroku.com ip to /etc/hosts
