@@ -47,3 +47,22 @@ rails test test/controllers
 rails test
 ```
 
+## 1.8.4
+check the number of category change
+```ruby
+assert_difference('Category.count',1) do 
+end
+``` 
+
+## 1.8.5 integration test
+
+  https://guides.rubyonrails.org/testing.html#integration-testing
+
+create test
+```
+rails generate integration_test user_flows
+```
+
+code example:
+https://github.com/udemyrailscourse/alpha-blog-6/commit/fd0c4f8a2fee0adeef9a7058f25c139cf0eb6760
+
