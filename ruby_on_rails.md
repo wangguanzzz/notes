@@ -79,3 +79,28 @@ check link exist with specific value
 ```
 assert_select "a[href=?]", catogory_path(@category), text: @category.name
 ```
+## 1.9.2
+helper like sign_in_as(user) can be defined in test/controllers/test_helper.rb
+
+## 1.9.6 many to many association
+has_many through
+https://guides.rubyonrails.org/association_basics.html#the-has-many-through-association
+
+## 1.9.7
+when association is built, can use below operation to add mapping
+``` ruby
+category = Category.last
+category.articles << artile
+```
+
+## 1.9.9
+whitelist category
+
+```ruby
+def article_params
+  params.require(:article).permit(:title, :description, category_ids: [])
+end
+```
+
+mutliple selection & bootstrap looks:
+https://github.com/udemyrailscourse/alpha-blog-6/commit/d307ea65a16e93aa700fa6a691694cd82a38fca1
