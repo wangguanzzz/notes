@@ -66,3 +66,16 @@ rails generate integration_test user_flows
 code example:
 https://github.com/udemyrailscourse/alpha-blog-6/commit/fd0c4f8a2fee0adeef9a7058f25c139cf0eb6760
 
+
+
+## 1.8.8
+check if component exists 
+```
+assert_select 'div.alert'
+assert_select 'h4.alert-heading'
+```
+## 1.9.0
+check link exist with specific value
+```
+assert_select "a[href=?]", catogory_path(@category), text: @category.name
+```
