@@ -1,3 +1,31 @@
+## rails + boostrap integraiton
+rails 6.1.4.1
+ruby 2.7.4
+yarn 1.22.17
+node 14.15.4
+
+
+
+switch gemset
+```
+#rvm gemset create rails6
+# gem install rails -v 6.1.4.1
+
+bash --login
+rvm 2.7.4@rails6
+```
+
+```
+rails new <project>
+```
+
+
+other code change
+https://github.com/udemyrailscourse/alpha-blog-6/commit/3cf2925664761c697c156ecf7687721086071adc
+
+
+
+
 ## 1.7.8 测试框架
 
 asserts

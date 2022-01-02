@@ -26,3 +26,9 @@ cnpm install -g heroku
 
 ## heroku push
 if meet cannot resovle git.heroku.com, need to manually add heroku.com ip to /etc/hosts
+
+
+## set up gem source mirror ( important in china)
+```
+bundle config mirror.https://rubygems.org https://gems.ruby-china.com
+```
