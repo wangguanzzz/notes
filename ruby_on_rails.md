@@ -111,7 +111,9 @@ article.destroy
 edit in model
 ```ruby
 class Article < ApplicationRecord
-    validates :title, presence: true
+    validates :title, presence: true, length: { minimum: 6, maximum: 100}
+    validates :description, presence: true, length: {minimum: 10, maximum:300}
+
 end
 ```
 command to reload the console
