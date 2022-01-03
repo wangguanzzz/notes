@@ -75,6 +75,54 @@ rails generate migration add_timestamps_to_articles
     add_column :articcles, :updated_at , :datetime
   end
 ```
+## 0.7.8
+create model
+```ruby
+class Article < ApplicationRecord
+end
+```
+open the console
+```
+rails c
+#get all artiles
+Article.all
+# create an article
+Article.create(title: "first article",description: "desc")
+
+a = Article.new
+a.title = 'aa'
+a.save
+
+```
+
+## 0.8.0 CRUD in console
+```ruby
+# in rails c
+Article.find(2)
+Article.first
+Article.last
+
+article = Article.first
+article.destroy
+
+```
+
+## 0.8.2 validation
+edit in model
+```ruby
+class Article < ApplicationRecord
+    validates :title, presence: true
+end
+```
+command to reload the console
+```ruby
+reload!
+
+#check save error
+article.save # return false
+article.errors
+article.errors.full_messages
+```
 ## 1.7.8 测试框架
 
 asserts
