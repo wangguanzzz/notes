@@ -24,7 +24,16 @@ other code change
 https://github.com/udemyrailscourse/alpha-blog-6/commit/3cf2925664761c697c156ecf7687721086071adc
 
 
-
+## Naming convention
+| Functional      | Naming |
+| ----------- | ----------- |
+| controller file name     | pages_controller.rb       |
+| controller class name    | PagesController < ApplicationController |
+| view   | pages/<mehtod>.html.erb        |
+| model name | page |
+| model file name | page.rb|
+| model class name | Page |
+| Table name  | pages |
 
 ## 1.7.8 测试框架
 
