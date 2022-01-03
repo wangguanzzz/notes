@@ -34,7 +34,47 @@ https://github.com/udemyrailscourse/alpha-blog-6/commit/3cf2925664761c697c156ecf
 | model file name | page.rb|
 | model class name | Page |
 | Table name  | pages |
+| migration convention | create_pages|
 
+## 0.7.6
+generate migration
+use rails cli will make the migration file has the timestamp, that is the reason
+command to create table
+```
+rails generate migration create_articles
+```
+
+code example: create a new table
+```ruby
+  def change
+    create_table :articles do |t|
+      t.string :title
+      t.text :description
+    end
+  end
+```
+
+execute it
+```
+rails db:migrate
+```
+roll back the migration ( not prefered way), **always create new mirgration**
+```
+rails db:rollback
+```
+
+code example: add a column to existing table
+command of generate migration
+```
+rails generate migration add_timestamps_to_articles
+```
+```ruby
+  def change
+    # created_date and upated_at are magical field names
+    add_column :articcles, :created_at , :datetime
+    add_column :articcles, :updated_at , :datetime
+  end
+```
 ## 1.7.8 测试框架
 
 asserts
