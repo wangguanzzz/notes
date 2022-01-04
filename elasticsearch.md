@@ -36,13 +36,16 @@ primary <-> replica shards, which is stored on the different nodes from primary
 
 * snapshosts ; at index or cluster level
 
-example, create index
-```
-put /pages
-```
+
 
 check shards
 ```
 GET /_cat/shards?v
 ```
 **auto_expand_replicas** change the number of replica according to node number
+
+## 21 create and delete index
+example, create index
+```
+put /pages
+```
