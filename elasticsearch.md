@@ -9,4 +9,6 @@ index -> a set of documents
 check cluster health
 ```elasticsearch
 GET /_cluster/health
+_cluster #API
+health #COMMAND
 ```
