@@ -45,3 +45,4 @@ check shards
 ```
 GET /_cat/shards?v
 ```
+**auto_expand_replicas** change the number of replica according to node number
