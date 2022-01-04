@@ -27,3 +27,16 @@ GET /_cat/indices?v
 sharding -> divide indices into smaller pieces, kind of an independent index (lucene index), shard of a index could scattered on multiple nodes.
 
 split & shrink API for shards
+
+## 17 shard replication
+
+replication is configured at the index level
+
+primary <-> replica shards, which is stored on the different nodes from primary
+
+* snapshosts ; at index or cluster level
+
+example, create index
+```
+put /pages
+```
