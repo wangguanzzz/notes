@@ -40,3 +40,8 @@ example, create index
 ```
 put /pages
 ```
+
+check shards
+```
+GET /_cat/shards?v
+```
