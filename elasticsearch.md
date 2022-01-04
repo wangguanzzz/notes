@@ -49,3 +49,7 @@ example, create index
 ```
 put /pages
 ```
+delete index
+```
+DELETE /pages
+```
