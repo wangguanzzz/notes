@@ -23,7 +23,7 @@ GET /_cat/nodes?v
 GET /_cat/indices?v
 ```
 
-## 16
+## 16 concept of shard
 sharding -> divide indices into smaller pieces, kind of an independent index (lucene index), shard of a index could scattered on multiple nodes.
 
 split & shrink API for shards
