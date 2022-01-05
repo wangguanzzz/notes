@@ -144,6 +144,14 @@ check routes command
 # rails routes --expanded
 ```
 
+in view
+```
+output
+<%= %>
+
+not output
+<% %>
+```
 ## 1.7.8 测试框架
 
 asserts
