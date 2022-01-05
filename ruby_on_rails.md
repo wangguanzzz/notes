@@ -36,6 +36,12 @@ https://github.com/udemyrailscourse/alpha-blog-6/commit/3cf2925664761c697c156ecf
 | Table name  | pages |
 | migration convention | create_pages|
 
+## 0.7.3 using scaffold
+
+```
+# rails generate scaffold Article title:string description:text
+# rails db:migrate
+```
 ## 0.7.6
 generate migration
 use rails cli will make the migration file has the timestamp, that is the reason
@@ -118,13 +124,26 @@ end
 ```
 command to reload the console
 ```ruby
-reload!
-
 #check save error
 article.save # return false
 article.errors
 article.errors.full_messages
 ```
+
+## 0.8.4 show articles
+1 create routes
+
+routes code 
+```ruby
+Rails.application.routes.draw do
+  resources :articles, only: [:show]
+end
+```
+check routes command
+```
+# rails routes --expanded
+```
+
 ## 1.7.8 测试框架
 
 asserts
