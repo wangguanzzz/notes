@@ -153,3 +153,38 @@ POST /products/_update/101
   }
 }
 ```
+## delete
+```
+DELETE /products/_update/101
+```
+## query
+search
+```
+GET /products/_search
+{
+  "query": {
+    "match_all": {}
+  }
+}
+```
+update with query
+```
+POST /products/_update_by_query
+{
+  "script": {
+    "source": "ctx._source.in_stock--"
+  },
+  "query":{
+    "match_all": {}
+  }
+}
+```
+delete with query
+```
+POST /products/_delete_by_query
+{
+  "query": {
+    "match_all": {}
+  }
+}
+```
