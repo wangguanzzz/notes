@@ -112,3 +112,27 @@ POST /products/_update/100
 
 ```
 **document is in fact immutable, see _version, _seq_number**
+
+##25 scripted updates
+example: directly reduce in stock by 1
+```
+POST /products/_update/100
+{
+  "script": {
+    "source": "ctx._source.in_stock--"
+  }
+}
+
+```
+example: use parameter
+```
+POST /products/_update/100
+{
+  "script": {
+    "source": "ctx._source.in_stock = params.quantity",
+    "params": {
+      "quantity": 400
+    }
+  }
+}
+```
