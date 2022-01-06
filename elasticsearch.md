@@ -75,7 +75,7 @@ POST /products/_doc
 ```
 return _id is the identity
 
-we can also explicitly provide the ip
+we can also explicitly provide the ip ( option: action.auto_create_index), this is the best practice
 ```
 PUT /products/_doc/100
 {
@@ -84,4 +84,31 @@ PUT /products/_doc/100
   "in_stock":2
 }
 ```
+## 23 retrieve document by ID
+```
+GET /products/_doc/100
+```
+return is the found key and _source key
 
+## 24 update document
+udpate existing key
+```
+POST /products/_update/100
+{
+  "doc": {
+    "in_stock": 100
+  }
+}
+
+```
+add new key
+```
+POST /products/_update/100
+{
+  "doc": {
+    "tags": ["electronics"]
+  }
+}
+
+```
+**document is in fact immutable, see _version, _seq_number**
