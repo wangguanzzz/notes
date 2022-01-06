@@ -47,7 +47,7 @@ GET /_cat/shards?v
 ## 21 create and delete index
 example, create index
 ```
-put /pages
+PUT /pages
 ```
 delete index
 ```
