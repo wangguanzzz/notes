@@ -136,3 +136,20 @@ POST /products/_update/100
   }
 }
 ```
+special usage
+ctx.op = 'noop' /'delete'
+
+## 26 upsert ( if existed ,update, if now , create)
+```
+POST /products/_update/101
+{
+  "script": {
+    "source": "ctx._source.in_stock ++"
+  },
+  "upsert": {
+    "name": "blender",
+    "price": 399,
+    "in_stock": 50
+  }
+}
+```
