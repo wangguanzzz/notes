@@ -152,6 +152,46 @@ output
 not output
 <% %>
 ```
+## 0.8.6 index articles
+## 0.8.8 new article ( create a form) and create ( get the post request)
+below form example makes sure it is a form use post rather than ajax
+```ruby
+<%= form_with scope: :article, url: articles_path, local: true do |f| %>
+ <p>
+    <%= f.label :title%><br/>
+    <%= f.text_field :title%>
+ </p>
+
+ <p>
+    <%= f.label :description%><br/>
+    <%= f.text_area :description%>
+ </p>
+ <p>
+    <%= f.submit %>
+ </p>
+<% end %>
+```
+for creating , the params need to be whitelisted ( strong parameters), and redirect_to
+```ruby
+  def create
+    @article = Article.new(params.require(:article).permit(:title, :description))
+    #render plain: @article.inspect
+    if @article.save
+    #redirect_to article_path(@article)  below is the short format
+      redirect_to @article
+    else
+      render 'new'
+    end
+  end
+```
+
+## 0.9.2
+common use
+```
+flash[:notice] 
+flash[:alert]
+```
+
 ## 1.7.8 测试框架
 
 asserts
