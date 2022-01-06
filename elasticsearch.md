@@ -188,3 +188,27 @@ POST /products/_delete_by_query
   }
 }
 ```
+
+## batch processing
+NDJSON specification
+
+note: index (if exist, then udpate), create (if exist , then error)
+example
+```
+POST /_bulk
+{"index": { "_index": "products", "_id": 200}}
+{"name": "machine1", "price":99, "in_stock": 5}
+{"create": { "_index": "products", "_id": 201}}
+{"name": "machine2", "price":199, "in_stock": 15}
+
+```
+
+can use change API to omit the _index
+```
+POST /products/_bulk
+{"index": {  "_id": 200}}
+{"name": "machine1", "price":99, "in_stock": 5}
+{"create": {  "_id": 201}}
+{"name": "machine2", "price":199, "in_stock": 15}
+
+```
