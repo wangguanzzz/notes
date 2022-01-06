@@ -212,3 +212,4 @@ POST /products/_bulk
 {"name": "machine2", "price":199, "in_stock": 15}
 
 ```
+**for NGJSON the last line also must have \n **
