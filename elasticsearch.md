@@ -61,5 +61,27 @@ PUT /products
     "number_of_shards": 2,
     "number_of_replicas": 2
   }
- ```
 }
+```
+## 22 store a document in index
+example 
+```
+POST /products/_doc
+{
+  "name": "coffee",
+  "price": 64,
+  "in_stock":10
+}
+```
+return _id is the identity
+
+we can also explicitly provide the ip
+```
+PUT /products/_doc/100
+{
+  "name": "toaster",
+  "price": 102,
+  "in_stock":2
+}
+```
+
