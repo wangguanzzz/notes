@@ -199,9 +199,41 @@ commonly it can be put above yield in body
     <%= yield %>
 ```
 
+the form_with options need to check below for detail
+### form_with options
+https://apidock.com/rails/ActionView/Helpers/FormHelper/form_with
+
+below edit form example, model will directly set the url and method, here is to update
+```ruby
+<%= form_with model: @article, local: true do |f| %>
+```
+
+update method example
+```ruby
+  def update
+    #byebug
+    @article = Article.find(params[:id]) 
+    @article.update(params.require(:article).permit(:title, :description))
+  end
+```
+
 ## 0.9.4 edit and update
 edit is making the form
 update is handling the update request
+
+## 0.9.6 destroy
+controller part code example
+```ruby
+  def destroy
+    @article = Article.find(params[:id]) 
+    @article.destroy
+    redirect_to articles_path
+  end
+```
+link in view example
+```ruby
+ <td><%= link_to 'Delete', article_path(article), method: :delete %></td>
+```
 
 ## 1.7.8 测试框架
 
