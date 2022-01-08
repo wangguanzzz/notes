@@ -191,6 +191,17 @@ common use
 flash[:notice] 
 flash[:alert]
 ```
+commonly it can be put above yield in body
+```ruby
+    <% flash.each do | name ,msg | %>
+      <%=msg%>
+    <% end %>
+    <%= yield %>
+```
+
+## 0.9.4 edit and update
+edit is making the form
+update is handling the update request
 
 ## 1.7.8 测试框架
 
