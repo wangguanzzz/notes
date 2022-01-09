@@ -234,6 +234,43 @@ link in view example
 ```ruby
  <td><%= link_to 'Delete', article_path(article), method: :delete %></td>
 ```
+### link_to options
+https://apidock.com/rails/ActionView/Helpers/UrlHelper/link_to
+
+
+## 1.0.0 DRY
+1. controller part
+*  private method , which need to be declear at the end of class(pricate is not block, it doesn't have end). example:
+; params below is a hash wrap all request params, it is like flash, accessible from all controller methods
+```ruby
+  private
+    # Use callbacks to share common setup or constraints between actions.
+    def set_article
+      @article = Article.find(params[:id])
+    end
+
+    # Only allow a list of trusted parameters through.
+    def article_params
+      params.require(:article).permit(:title, :description)
+    end
+```
+* before_action
+```ruby
+class ArticlesController < ApplicationController
+  before_action :set_article, only: [ show edit update destroy ]
+end
+```
+
+2. partial in view
+* layout partial, you need to add layouts/
+```ruby
+# partial file is layouts/_messages.html.erb
+  <body>
+    <%= render 'layouts/messages'%>
+    <%= yield %>
+  </body>
+```
+
 
 ## 1.7.8 测试框架
 
