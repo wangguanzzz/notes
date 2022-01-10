@@ -35,7 +35,26 @@ heroku login -i
 user:wangguanzzz@gmail.com
 
 ```
-
+2. add the production part in Gemfile
+```ruby
+group :production do
+  gem 'pg'
+end
+```
+3. move the gem 'sqlite3' and put into :development ,:test env
+```ruby
+group :development, :test do
+  # Call 'byebug' anywhere in the code to stop execution and get a debugger console
+  gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
+  gem 'sqlite3', '~> 1.4'
+end
+```
+4. install gem, must be **bundle install --without production**
+5. git add; git commit ; git push heroku master
+6. do heroku db:migrate
+```console
+heroku run rails db:migrate
+```
 ## set up gem source mirror ( important in china)
 ```
 bundle config mirror.https://rubygems.org https://gems.ruby-china.com
