@@ -27,6 +27,14 @@ cnpm install -g heroku
 ## heroku push
 if meet cannot resovle git.heroku.com, need to manually add heroku.com ip to /etc/hosts
 
+## heroku deployment process
+1. login 
+```console
+
+heroku login -i
+user:wangguanzzz@gmail.com
+
+```
 
 ## set up gem source mirror ( important in china)
 ```

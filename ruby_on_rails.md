@@ -24,6 +24,32 @@ other code change
 https://github.com/udemyrailscourse/alpha-blog-6/commit/3cf2925664761c697c156ecf7687721086071adc
 
 
+## Heroku deploymnet
+* Gemfile
+```ruby
+# move split3 to development
+group :development, :test do
+  # Call 'byebug' anywhere in the code to stop execution and get a debugger console
+  gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
+  gem 'sqlite3', '~> 1.4'
+end
+
+
+group :production do
+  gem 'pg'
+end
+
+```
+* deploy to heroku
+```console
+git push heroku master
+```
+* perform heroku db:migrate
+```console
+heroku run rails db:migrate
+```
+
+
 ## Naming convention
 | Functional      | Naming |
 | ----------- | ----------- |
@@ -271,6 +297,26 @@ end
   </body>
 ```
 
+## 1.1.0 Build homepage
+1. update the css in app/assets/custom.css.scss
+2. image donwload to app/assets/images
+
+## 1.1.2 Change link
+change the boostrap html link to rails link_to
+```ruby
+<a class="navbar-brand" id="logo" href="#">ALPHA BLOG</a>
+<%= link_to 'ALPHA BLOG', root_path, class: "navbar-brand" , id: "logo" %>
+```
+## 1.1.4
+## useful methods
+text truncate example
+```ruby
+truncate(article.description, length: 100)
+```
+time ago in word
+```ruby
+time_ago_in_words(article.created_at)
+```
 
 ## 1.7.8 测试框架
 
