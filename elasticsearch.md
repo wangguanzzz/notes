@@ -218,6 +218,20 @@ POST /products/_bulk
 **_source object is not used when searching documents**
 Document => Analyzer => Storage
 Analyzer has
-* character filters
-* Tokenizer
+* character filters (0->N)
+  eg. remove html tags html_strip: 
+```html
+<h1>hello world</h1>
+
+hello world
+```
+* Tokenizer (must 1) ,
+tokenizer records also the string offset
+```
+#input
+"I really like beer“
+#output
+["I", "really", "like", "beer"]
+```
+
 * Token filters
