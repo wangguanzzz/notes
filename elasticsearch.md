@@ -213,3 +213,11 @@ POST /products/_bulk
 
 ```
 **for NGJSON the last line also must have \n **
+
+## 4.0 analysis
+**_source object is not used when searching documents**
+Document => Analyzer => Storage
+Analyzer has
+* character filters
+* Tokenizer
+* Token filters
