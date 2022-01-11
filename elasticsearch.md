@@ -242,3 +242,11 @@ lowercaes filter
 #output
 ["i","really","like","beer"]
 ```
+## 4.1 analyzer API
+```console
+POST /_analyze
+{
+  "text": "Chris is a good guy! :-)",
+  "analyzer": "standard"
+}
+```
