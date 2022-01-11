@@ -229,9 +229,16 @@ hello world
 tokenizer records also the string offset
 ```
 #input
-"I really like beer“
+"I REALLY like beer“
 #output
-["I", "really", "like", "beer"]
+["I", "REALY", "like", "beer"]
 ```
 
-* Token filters
+* Token filters ( 0->N)
+lowercaes filter
+```
+#input
+["I", "REALY", "like", "beer"]
+#output
+["i","really","like","beer"]
+```
