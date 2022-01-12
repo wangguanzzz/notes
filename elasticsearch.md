@@ -250,3 +250,48 @@ POST /_analyze
   "analyzer": "standard"
 }
 ```
+customizing the char_filter, tokenizer, and filter
+```console
+POST /_analyze
+{
+  "text": "Chris is a good guy! :-)",
+  "char_filter": [],
+  "tokenizer": "standard",
+  "filter": ["lowercase"]
+}
+```
+## 4.2 inverted index
+mapping between terms and which documents contain them
+an inverted index is created for each "text" "field"
+name and description below has two inverted index
+```
+{ 
+  name: "xxx"
+  description: "xxx" 
+}
+```
+numeric, date and geospatial fields are stored has BKD trees.
+## 4.3 mapping
+mapping defines the structure of documents (like DB schema)
+## 4.4 data types
+1. object : json object, can be nested, all document indexed is object,
+we use "properties" field for object rather than "type"
+object stored internally is flatterned json
+
+array index: field is flatterned , array fields are duplicated as array
+
+2. nested : useful indexing array of objects; must use nested query;
+nested object are stored as hidden documents
+
+3. keyword: used for fields you want to match for exact values; for sorting , filtering, and aggregations
+( full text searches, use text instead); 
+
+unlike text, keyword are analyzed with the keyword analyzer(do no-op)
+
+```console
+POST /_analyze
+{
+  "text": "Chris is a good guy! :-)",
+  "analyzer": "keyword"
+}
+```
