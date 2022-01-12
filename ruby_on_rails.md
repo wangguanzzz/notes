@@ -317,6 +317,94 @@ time ago in word
 ```ruby
 time_ago_in_words(article.created_at)
 ```
+## 1.1.6 form styling example
+```ruby
+   <div class="row justify-content-center">
+      <div class="col-10">
+      <%= form_with model: @article, local: true, class: "shadow mb-3 bg-info rounded p-3" do |f| %>
+         <div class="form-group row" > 
+            <%= f.label :title ,class: "col-2 col-form-label"%>
+            <div class="col-10">
+               <%= f.text_field :title, class: "form-control shadow rounded"%>
+            </div>
+         </div>
+
+      <div class="form-group row" > 
+         <%= f.label :description, class: "col-2 col-form-label"%>
+         <div class="col-10">
+            <%= f.text_area :description , class: "form-control shadow rounded", rows: 10 %>
+         </div>
+      </div>
+      <div class="form-group row justify-content-center" >
+         <%= f.submit  class: "btn btn-outline-light btn-lg" %>
+      </div>
+
+      <% end %>
+      <%= link_to 'Return to articles listing', articles_path, class: "text-info text-center "  %>
+      </div>
+   </div>
+```
+
+## 1.1.8 validation and flash message styling
+**disable default validation style**
+```ruby
+#config/environment.rb add
+ActionView::Base.field_error_proc = Proc.new do | html_tag, instance |
+    html_tag.html_safe
+end
+```
+2. move the error message part into shared/_error.html.erb, invoking is
+```ruby
+<%= render 'shared/errors' %>
+```
+
+## 1.2.0
+keep the original format for text
+```ruby
+<p class="card-text"><%= simple_format(@article.description) %></p>
+```
+
+
+## 1.2.4 Association
+https://guides.rubyonrails.org/v6.0/association_basics.html
+
+## 1.2.5 one to many association
+1. create db migration add user_id to article table
+2. add has_many in model User
+3. add belongs_to in model Article
+create method
+```ruby
+#1
+Article.create(username: "", user_id: 1)
+#2
+Article.create(username: "", user: @user)
+#3
+user1.articles.build(title: "abc")
+#4
+user1.articles << @article
+
+```
+
+## 1.2.6
+**git local feature branch**
+```console
+# create a new local branch
+git checkout -b create-user-table-model
+# check branch
+git branch
+# local add and commit
+git add -A
+git commit -m "update"
+# back 
+git checkout master
+# merge
+git merge <feature branch name>
+```
+
+## 1.2.8
+vaidation details
+https://guides.rubyonrails.org/v6.0/active_record_validations.html
+
 
 ## 1.7.8 测试框架
 

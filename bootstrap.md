@@ -14,3 +14,5 @@ class: text-center ; text-white
 text-primary
 text-success
 ```
+4. alert
+https://getbootstrap.com/docs/4.0/components/alerts/
