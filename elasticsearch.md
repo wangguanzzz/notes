@@ -213,3 +213,40 @@ POST /products/_bulk
 
 ```
 **for NGJSON the last line also must have \n **
+
+## 4.0 analysis
+**_source object is not used when searching documents**
+Document => Analyzer => Storage
+Analyzer has
+* character filters (0->N)
+  eg. remove html tags html_strip: 
+```html
+<h1>hello world</h1>
+
+hello world
+```
+* Tokenizer (must 1) ,
+tokenizer records also the string offset
+```
+#input
+"I REALLY like beer“
+#output
+["I", "REALY", "like", "beer"]
+```
+
+* Token filters ( 0->N)
+lowercaes filter
+```
+#input
+["I", "REALY", "like", "beer"]
+#output
+["i","really","like","beer"]
+```
+## 4.1 analyzer API
+```console
+POST /_analyze
+{
+  "text": "Chris is a good guy! :-)",
+  "analyzer": "standard"
+}
+```
