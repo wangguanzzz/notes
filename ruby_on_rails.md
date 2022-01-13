@@ -400,11 +400,65 @@ git checkout master
 # merge
 git merge <feature branch name>
 ```
+then remove the local branch
+```
+git branch -d <name>
+```
 
 ## 1.2.8
 vaidation details
 https://guides.rubyonrails.org/v6.0/active_record_validations.html
 
+## 1.3.0
+update all exising moddel , after updating the association
+```ruby
+Article.update_all(user_id: User.first.id)
+```
+
+## 1.3.4 model hook before_save
+```ruby
+class User < ApplicationRecord
+    before_save {self.email = email.downcase }
+end
+```
+## 1.3.6 add secure password
+**devise gem make the authN very easy** 
+ 
+ here just use native rail
+1. uncommment bcrypt in Gemfile
+2.  add password_digest column to users table
+```console
+$ rails generate migration add_password_digest_to_users
+```
+3. update User model
+```ruby
+has_secure_password
+```
+4. user authN
+```
+user = User.first
+user.password= "password"
+# if pass, will return user
+user.authenticate("password")
+```
+
+## 1.3.8 user signup form
+
+user signup routes
+```ruby
+#routes.rb
+get 'signup', to: "users#new"
+```
+**email field and password_field**
+ ```ruby
+ <%= f.email_field :email , class: "form-control shadow rounded" %>
+  <%= f.password_field :email , class: "form-control shadow rounded" %>
+```
+**VERY IMPORTANT** how to share partial
+```ruby
+# invoking partial, and replace obj with model article
+<%= render 'shared/errors', obj: @article %>
+```
 
 ## 1.7.8 测试框架
 

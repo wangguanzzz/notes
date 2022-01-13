@@ -295,3 +295,33 @@ POST /_analyze
   "analyzer": "keyword"
 }
 ```
+
+4. coercion
+coercion will force the index field to be converted into the expected type;
+
+notice the _source object will use the original value, 
+coercion is enabled by default
+```console
+PUT /coercion_test/_doc/1
+{
+  "price": 7.4
+}
+PUT /coercion_test/_doc/1
+{
+  "price": "7.4"
+}
+PUT /coercion_test/_doc/1
+{
+  "price": "7.4m"
+}
+```
+
+5. array, array is not a data type, it is by default supported,
+for string, it is stored as concatenated with " "
+```console
+POST /_analyze
+{
+  "text" : ["Strings are simple", "merge together"]
+  "analyzer": "standard"
+}
+```
