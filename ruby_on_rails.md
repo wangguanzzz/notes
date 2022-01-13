@@ -459,6 +459,12 @@ get 'signup', to: "users#new"
 # invoking partial, and replace obj with model article
 <%= render 'shared/errors', obj: @article %>
 ```
+## 1.4.2 edit user
+check if obj is new record
+```ruby
+<%= f.submit @user.new_record?  ? "sign up": "submit",  class: "btn btn-outline-light btn-lg" %>
+```
+
 
 ## 1.7.8 测试框架
 
