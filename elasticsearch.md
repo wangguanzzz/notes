@@ -325,3 +325,48 @@ POST /_analyze
   "analyzer": "standard"
 }
 ```
+
+## 4.9 create explicit mapping
+```console
+# create reviews index with mapping
+PUT /reviews
+{
+  "mappings":{
+    "properties": {
+      "rating": { "type": "float"},
+      "content": {"type": "text"},
+      "product_id": {"type": "integer"},
+      "author": {
+        "properties": {
+          "first_name": {"type": "text"},
+          "last_name" : {"type": "text"},
+          "email: {"type": "keyword"}
+        }
+      }
+    }
+  }
+}
+```
+## 5.0 retrieve mapping
+```console
+GET /reviews/_mapping
+GET /reviews/_mapping/field/author.email
+```
+## 5.1 use dot convention for 4.9 example
+```console
+# create reviews index with mapping
+PUT /reviews
+{
+  "mappings":{
+    "properties": {
+      "rating": { "type": "float"},
+      "content": {"type": "text"},
+      "product_id": {"type": "integer"},
+      "author.first_name": {"type": "text"},
+      "author.last_name" : {"type": "text"},
+      "author.email: {"type": "keyword"}
+      }
+    }
+  }
+}
+```
