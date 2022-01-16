@@ -370,3 +370,21 @@ PUT /reviews
   }
 }
 ```
+
+## 5.1 add a new filed in mapping
+```
+PUT /reviews/_mapping
+{
+  "properties" : {
+    "created_at" : {
+      "type": "date"
+    }
+  }
+}
+```
+## 5.2 dates in elasticsearch
+elasticsearch suuport 
+* date without time
+* date with time (ISO 8601)  e.g **2015-04-15T13:07:41Z** z is the time zone
+* milliseconds since the epoch (long)  (this is the internal stored format)
+

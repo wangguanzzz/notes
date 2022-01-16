@@ -465,6 +465,42 @@ check if obj is new record
 <%= f.submit @user.new_record?  ? "sign up": "submit",  class: "btn btn-outline-light btn-lg" %>
 ```
 
+## 1.4.4 APPLICATION HELPER
+**in helpers folder, you could create global helper methods**
+in view
+```ruby
+<%= gravatar_for @user %>
+```
+
+in helpers/application_helper.rb
+```ruby
+    def gravatar_for(user, options = {size: 80 })
+        email_address = user.email.downcase
+        hash = Digest::MD5.hexdigest(email_address)
+        size = options[:size]
+        gravatar_url = "https://www.gravatar.com/avatar/#{hash}?s=#{size}"
+        image_tag(gravatar_url, alt: user.username)
+    end
+```
+
+## 1.4.6 user index
+link_to is not only creating the link text, it can also used for picture
+```ruby
+<%= link_to gravatar_for(user, size:80 ) %>
+
+```
+**pluralize**复数方法
+```ruby
+pluralize(user.articles.count, "article“)
+```
+
+## 1.5.0 pagination
+1. add **will_paginate ** gem
+https://github.com/mislav/will_paginate
+``` ruby
+ gem 'will_paginate', '~> 3.1.0'
+```
+
 
 ## 1.7.8 测试框架
 
