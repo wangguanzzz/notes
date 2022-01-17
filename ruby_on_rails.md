@@ -487,18 +487,96 @@ in helpers/application_helper.rb
 link_to is not only creating the link text, it can also used for picture
 ```ruby
 <%= link_to gravatar_for(user, size:80 ) %>
-
 ```
+
+
 **pluralize**复数方法
 ```ruby
 pluralize(user.articles.count, "article“)
 ```
 
 ## 1.5.0 pagination
-1. add **will_paginate ** gem
+add **will_paginate ** gem
 https://github.com/mislav/will_paginate
 ``` ruby
  gem 'will_paginate', '~> 3.1.0'
+```
+
+styling:
+http://mislav.github.io/will_paginate/?page=2
+
+1. in controller
+```ruby
+ @articles = Article.paginate(page: params[:page], per_page: 3)
+```
+2. in view
+```ruby
+  <div class="flickr_pagination mb-2">  
+    <%= will_paginate @articles, :container => false %>
+  </div>
+```
+
+## 1.5.2 login && sessions management
+1. routes
+```ruby
+  get 'login', to: "sessions#new"
+  post 'login', to: "sessions#create"
+  delete 'logout', to "sessions#destroy"
+```
+2. controller
+
+3. viewer
+in viewer form, the model cannot be used any more, it has to use scope
+```ruby
+<%= form_with scope: :session, url: login_path, local: true, class: "shadow mb-3 bg-info rounded p-3" do |f| %>
+```
+then the handle parameter will get all params in params[:session]
+
+## 1.5.4 create and detroy session
+**session** 
+https://guides.rubyonrails.org/v6.0/action_controller_overview.html#accessing-the-session
+
+
+example:
+```ruby
+    def create
+        user = User.find_by(email: params[:session][:email].downcase)
+        if user && user.authenticate(params[:session][:password])
+            session[:user_id] = user.id
+            flash[:notice] = "log in successfully"
+            redirect_to user
+        else
+            flash.now[:alert] = "there is something wrong with your username/password"
+            render 'new'
+        end
+    end
+
+    def destroy
+        session[:user_id] = nil
+        flash[:notice] = "Logged out"
+        redirect_to root_path
+    end
+
+```
+
+## 1.5.6 authN helper
+```ruby
+    def current_user
+        @current_user ||= User.find(session[:user_id]) if session[:user_id]
+    end
+
+    def logged_in?
+        !!current_user
+    end
+```
+
+@current_user avoid to read the database again and again.
+**application helper can be only userd in view** 
+
+## 1.5.8 controller helper & view helper
+move the current_user to application_controller, and add helper_method , make sure it can be accessed anywhere
+```ruby
+
 ```
 
 
