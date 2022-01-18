@@ -8,3 +8,6 @@
   authorization -> Policies
   accounting -> CloudTrail
 * Non-repudiation (the Triad) can't deny you did something
+
+## security of AWS
+https://aws.amazon.com/security/
