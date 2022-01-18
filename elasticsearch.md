@@ -388,3 +388,7 @@ elasticsearch suuport
 * date with time (ISO 8601)  e.g **2015-04-15T13:07:41Z** z is the time zone
 * milliseconds since the epoch (long)  (this is the internal stored format)
 
+## 5.3 missing fileds 
+**all fields in ES are optional**
+
+integrety is handled in applicaiton level
