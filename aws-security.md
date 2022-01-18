@@ -11,3 +11,5 @@
 
 ## security of AWS
 https://aws.amazon.com/security/
+complicance
+https://aws.amazon.com/compliance/
