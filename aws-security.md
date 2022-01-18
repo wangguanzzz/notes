@@ -13,3 +13,5 @@
 https://aws.amazon.com/security/
 complicance
 https://aws.amazon.com/compliance/
+
+aws corp network is segregated from AWS 
