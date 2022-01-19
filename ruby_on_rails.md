@@ -654,6 +654,12 @@ in simple applicaiton, there is some typical roles like admin, moderator, etc
 ```
 
 
+## 1.7.6 Heroku
+enter heroku rails console
+```console
+heroku run rails console
+```
+
 ## 1.7.8 测试框架
 
 asserts
