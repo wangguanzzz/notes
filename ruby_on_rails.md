@@ -623,6 +623,35 @@ class ArticlesController < ApplicationController
   before_action :require_same_user, only: [:edit, :update, :destroy]
 ```
 
+## 1.6.8 delete user & its associated articles
+model level
+```ruby
+class User < ApplicationRecord
+  has_many :articles, dependent: :destroy
+end
+```
+
+in user controller
+```ruby
+def destroy
+  @user.destroy
+  session[user_id] = nil
+end
+```
+
+## 1.7.0 admin user [permissions functionality]
+in ERP or CRM , it will need the permissions table
+in simple applicaiton, there is some typical roles like admin, moderator, etc
+
+1. in db migration, add_colume has default option defines the default value
+2. for boolean field, User.admin? can directly check value
+3. User.toggle!(:admin) can revert the boolean field value
+
+## 1.7.4 change flash color
+**the ruby in html <%%> can update any place**
+```ruby
+  <div class="alert alert-<%= name == "notice"? "success" : "danger" %> alert-dismissible fade show" role="alert">
+```
 
 
 ## 1.7.8 测试框架
