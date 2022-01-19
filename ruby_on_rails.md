@@ -570,14 +570,59 @@ example:
     end
 ```
 
+
 @current_user avoid to read the database again and again.
 **application helper can be only userd in view** 
 
 ## 1.5.8 controller helper & view helper
 move the current_user to application_controller, and add helper_method , make sure it can be accessed anywhere
 ```ruby
+class ApplicationController < ActionController::Base
 
+    helper_method :current_user,:logged_in?
+
+    def current_user
+        @current_user ||= User.find(session[:user_id]) if session[:user_id]
+    end
+ 
+    def logged_in?
+        !!current_user
+    end
+
+
+end
 ```
+
+## 1.6.4 restiruction from controller
+* global level ,#applicaton_controller.rb
+```ruby
+#check if login
+    def require_user
+        if !logged_in?
+          flash[:alert] = "you must be logged in "
+          redirect_to login_path
+        end
+    end
+```
+* model specific level, model controller (articles_controller.rb)
+```ruby
+    def require_same_user
+      if current_user != @article.user
+        flash[:alert] = "wront user"
+        redirect_to @article
+      end
+    end
+```
+
+* the order of checking in controller is important
+```ruby
+# article controller
+class ArticlesController < ApplicationController
+  before_action :set_article, only: [ :show,:edit, :update, :destroy ]
+  before_action :require_user, except: [:index,:show]
+  before_action :require_same_user, only: [:edit, :update, :destroy]
+```
+
 
 
 ## 1.7.8 测试框架
