@@ -7,5 +7,7 @@
 ## ES
 source -> lambda
 * deploy_es -> lambda used to config ES;
- data.ini, configuration data
+ data.ini, configuration data; 
+  1. conponent template
+  2. index template -> 通配符 创建新的index
 * es_loader -> 
