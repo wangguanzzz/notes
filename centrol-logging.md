@@ -15,8 +15,10 @@ source -> lambda
  1. aws.ini: configuration; ecs: common schema;
  2. user.ini: configuration, not aws part (app-log, terrform log, time get from the file name)
     script_ecs, use script further
+    add account info in this part siem=> __init__.py => __call__ method => sf_xx transform, enrich
 
 ## Dashboard
 saved objects => export the board to json, then import to prod env
 source -> saved objects, default dashboard
-source -> saved object -> additional , customzing dashboard
+source -> saved object -> additional , customzing dashboard  siem => sf_  ECS (elastic common schema) cloud.account.id cloud.account.name
+ 
