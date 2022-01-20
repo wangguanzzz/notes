@@ -1,6 +1,23 @@
 ## download old version path
 https://releases.hashicorp.com/terraform/
 
+## local plugin installation path
+e.g aws plugin
+
+/home/ansuser/.terraform.d/plugins/local/hashicorp/aws/3.36.0/linux_amd64
+
+download path
+
+https://releases.hashicorp.com/terraform-provider-aws/
+
+if terraform updated, need to remove the local lock file **.terraform.lock.hcl**
+
+## import resource
+```console
+terraform import  aws_kms_key.cmk arn:aws:kms:ap-east-1:379749426479:key/2d4b909c-4f9e-46c7-b2aa-52adf27d3565
+```
+
+
 ## retrieve root variable from module
 from root
 ```
