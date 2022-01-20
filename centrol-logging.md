@@ -16,3 +16,5 @@ source -> lambda
  2. user.ini: configuration, not aws part (app-log, terrform log, time get from the file name)
     script_ecs, use script further
 
+## Dashboard
+saved objects => export the board to json, then import to prod env
