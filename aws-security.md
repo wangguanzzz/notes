@@ -15,12 +15,13 @@ complicance
 https://aws.amazon.com/compliance/
 
 aws corp network is segregated from AWS 
+PCI, ISO, HIPAA
 
 ## shared responsibility model
 model chnages for different types:
 * infrastructure: ec2, auto scaling, vpc, you control the os, you configure and operate any id management
 * container; RDS, EMR, Elastic Beanstalk ;managing network control, like firewall rules
-* abstracted; S3, Glacier, sq; abstract service policy
+* abstracted; S3, Glacier, SQS; abstract service policy
 
 ## security in AWS
 * visibility
@@ -36,3 +37,7 @@ model chnages for different types:
   Process repeatable:
   - AWS Opsworks
   - AWS CodeDeploy
+* Automation
+* Scale
+
+## Recap IAM
