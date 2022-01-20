@@ -10,4 +10,8 @@ source -> lambda
  data.ini, configuration data; 
   1. conponent template
   2. index template -> 通配符 创建新的index
-* es_loader -> 
+  3. index-rollover -> choose index retention policy
+* es_loader ->  
+ 1. aws.ini: configuration; ecs: common schema;
+ 2. user.ini: configuration, not aws part (app-log, terrform log)
+
