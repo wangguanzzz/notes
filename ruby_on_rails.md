@@ -766,3 +766,14 @@ end
 
 mutliple selection & bootstrap looks:
 https://github.com/udemyrailscourse/alpha-blog-6/commit/d307ea65a16e93aa700fa6a691694cd82a38fca1
+
+## 2.0.1
+viewer, when render an array, it will render it one by one. it expect partial category
+```ruby
+<%=render @uarticle.categories%>
+```
+
+parial _category.html.erb
+```ruby
+<%= category %>
+```
