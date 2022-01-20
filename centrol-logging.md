@@ -6,5 +6,6 @@
 
 ## ES
 source -> lambda
-deploy_es -> lambda used to config ES
-es_loader -> 
+* deploy_es -> lambda used to config ES;
+ data.ini, configuration data
+* es_loader -> 
