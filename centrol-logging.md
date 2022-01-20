@@ -21,4 +21,4 @@ source -> lambda
 saved objects => export the board to json, then import to prod env
 source -> saved objects, default dashboard
 source -> saved object -> additional , customzing dashboard  siem => sf_  ECS (elastic common schema) cloud.account.id cloud.account.name
- 
+**transform_to_ecs** method, according to account id fill accoutn.name fields
