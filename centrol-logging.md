@@ -18,3 +18,4 @@ source -> lambda
 
 ## Dashboard
 saved objects => export the board to json, then import to prod env
+source -> saved objects, default dashboard
