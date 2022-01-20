@@ -13,5 +13,6 @@ source -> lambda
   3. index-rollover -> choose index retention policy
 * es_loader ->  
  1. aws.ini: configuration; ecs: common schema;
- 2. user.ini: configuration, not aws part (app-log, terrform log)
+ 2. user.ini: configuration, not aws part (app-log, terrform log, time get from the file name)
+    script_ecs, use script further
 
