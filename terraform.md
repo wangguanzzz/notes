@@ -10,6 +10,8 @@ download path
 
 https://releases.hashicorp.com/terraform-provider-aws/
 
+if terraform updated, need to remove the local lock file **.terraform.lock.hcl**
+
 
 ## retrieve root variable from module
 from root
