@@ -18,7 +18,11 @@ terraform import  aws_kms_key.cmk arn:aws:kms:ap-east-1:379749426479:key/2d4b909
 # import into module
 terraform import  module.cmk.aws_kms_key.cmk arn:aws:kms:ap-east-1:379749426479:key/2d4b909c-4f9e-46c7-b2aa-52adf27d3565
 ```
-
+## statement operation
+only remove in tf state
+```console
+terraform state rm 'module.foo.packet_device.worker'
+```
 
 ## retrieve root variable from module
 from root
