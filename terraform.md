@@ -24,6 +24,16 @@ only remove in tf state
 terraform state rm 'module.foo.packet_device.worker'
 ```
 
+## template file
+relative path
+```
+file("${path.module}/hello.txt")
+```
+template function
+```
+assume_role_policy = templatefile("policy.json",{account_id = var.account_id , aws_region = var.aws_region})
+```
+
 ## retrieve root variable from module
 from root
 ```
