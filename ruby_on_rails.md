@@ -447,6 +447,8 @@ user.authenticate("password")
 user signup routes
 ```ruby
 #routes.rb
+# root route
+root "chatroom#index"
 get 'signup', to: "users#new"
 ```
 **email field and password_field**
@@ -776,4 +778,34 @@ viewer, when render an array, it will render it one by one. it expect partial ca
 parial _category.html.erb
 ```ruby
 <%= category %>
+```
+
+## 2.1.4 Intergration with Semantic UI (rails5)
+add below in Gemfile
+```ruby
+gem 'semantic-ui-sass'
+gem 'jquery-rails'
+```
+follow the steps in 
+https://github.com/doabit/semantic-ui-sass
+
+video steps
+https://www.udemy.com/course/the-complete-ruby-on-rails-developer-course/learn/lecture/12715243#overview
+
+
+enable dropdown link, append it after application.js
+```javascript
+$(document).on('turbolinks:load',function (){
+  $('.ui.dropdown').dropdown();
+})
+
+```
+
+## 2.1.7 Favicon
+download the favicon from website like https://gauger.io/fonticon/
+put the favicon.ico into app/assets/images/
+```ruby
+# update the applicaton.html.erb
+    <title>MessageMe</title>
+    <%= favicon_link_tag %>
 ```
