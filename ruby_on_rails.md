@@ -858,3 +858,68 @@ as it will render model Message array,
     <%= render @messages %>
 </div>
 ```
+
+## 2.2.6 authentication system
+below code looks can be used in any application.
+```ruby
+class ApplicationController < ActionController::Base
+  helper_method :current_user, :logged_in?
+
+  def current_user
+    @current_user ||= User.find(session[:user_id]) if session[:user_id]
+  end
+  
+  def logged_in?
+    !!current_user
+  end
+
+  def require_user
+    if !logged_in?
+        flash[:error] = "you must log in"
+        redirect_to login_path
+    end
+  end
+end
+
+```
+login in controller
+```ruby
+class SessionsController < ApplicationController 
+  def new      
+  end
+
+  def create
+    session_params
+    user = User.find_by(username: params[:session][:username])
+    if user && user.authenticate(params[:session][:password])
+        session[:user_id] = user.id
+        flash[:notice] = "log in successfully"
+        redirect_to root_path
+    else
+        flash.now[:alert] = "there is something wrong with your username/password"
+        render 'new'
+    end
+  end
+
+  private
+  def session_params
+    params.require(:session).permit(:username, :password)
+  end
+end
+```
+
+## 2.2.8 flash messages
+to enable dismissable messsage
+```javascript
+# applicaiton.js
+$(document).on('turbolinks:load',function (){
+  $('.ui.dropdown').dropdown();
+  $('.message .close')
+  .on('click', function() {
+    $(this)
+      .closest('.message')
+      .transition('fade')
+    ;
+  });
+})
+```
