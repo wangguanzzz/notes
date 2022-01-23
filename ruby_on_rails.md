@@ -826,3 +826,35 @@ in Gemfile add gem 'hirb', it can show data in rails console in table format
 Hirb.enable
 User.all
 ```
+
+validate uniqueness:
+```ruby
+validates :username, uniqueness: {case_sensitive: false}
+```
+
+## 2.2.5 render array partial
+in controller level
+```ruby
+    def index
+        @messages = Message.all
+    end
+```
+
+as it will render model Message array, 
+1. create view/messages
+2. create view/messages/_message.html.erb
+```ruby
+<div class="event">
+    <div class="content">
+    <div class="summary">
+        <em><%= message.user.username%></em>: <%= message.body %>
+    </div>
+    </div>
+</div>
+```
+3. in view of chatroom index
+```ruby
+<div class="ui  feed">
+    <%= render @messages %>
+</div>
+```
