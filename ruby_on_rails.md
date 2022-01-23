@@ -809,3 +809,20 @@ put the favicon.ico into app/assets/images/
     <title>MessageMe</title>
     <%= favicon_link_tag %>
 ```
+
+## 2.2.2 db seed 
+in db/migration/seeds.rb, the initial data can be added
+```ruby
+User.create(username: 'wangguanzzz1', password: 'password')
+User.create(username: 'wangguanzzz2', password: 'password')
+User.create(username: 'wangguanzzz3', password: 'password')
+```
+```console
+rails db:seed
+```
+in Gemfile add gem 'hirb', it can show data in rails console in table format
+```console
+#in rails console
+Hirb.enable
+User.all
+```

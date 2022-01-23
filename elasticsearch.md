@@ -392,3 +392,13 @@ elasticsearch suuport
 **all fields in ES are optional**
 
 integrety is handled in applicaiton level
+
+## 5.4 mapping parameters
+1. format : used to customizing date (use the default format whenever posssible)
+2. object nested fields
+3. coerce. used to enable or disable coercion of values, it can be field or index level
+4. doc_values, (antoher data structure from inverted index term-> doc)  doc-> terms; if it is used, both is maintained; it can be disable by false, when no aggregation, sorting, or scrpiting needed.
+5. norm. used for relevance scoring, rank, it can be disabled, if no ranking needed
+6. index. disables indexing for a field, values are still stored in _source, it still can be used for aggregation
+7. null_value, replace null value to a default value
+8. copy_to parameter, copy multiple fields values into a "group field" , eg first_name, last_name => full name
