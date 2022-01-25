@@ -923,3 +923,43 @@ $(document).on('turbolinks:load',function (){
   });
 })
 ```
+
+## 2.3.0 form for message IN INDEX view (IMPORTANT)
+1. create message handle in route
+```ruby
+  post 'message', to: "messages#create"
+```
+2. in the chatroom view, build a form send post request to /message
+```ruby
+<%= form_for @message, class: "ui reply form", url: message_path do |f|%>
+  <div class="field">
+      <div class="ui  fluid icon input ">
+      <%= f.text_field :body,placeholder: "input text" %>
+      # create a form button with icon
+      <%= f.button  '<i class="bordered inverted orange icon edit"></i>'.html_safe %>
+      </div>
+  </div>
+<% end %>
+```
+3. in message controller, handle the request, and redirect to chatroom view
+```ruby
+class MessagesController < ApplicationController 
+    before_action :require_user
+
+    def create
+        message = @current_user.messages.build(message_params)
+        redirect_to root_path if message.save
+    end
+
+    private
+    def message_params
+        params.require(:message).permit(:body)
+    end
+end
+```
+
+## 2.3.2 Websocket on ACTIONCABLE
+1. generate a chatroom channel
+2. update messages_controller create  - boradcast data to channel
+3. write some JS to handle the data - receive the data and append to chat window
+4. update styling to handle the data
