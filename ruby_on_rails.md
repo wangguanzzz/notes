@@ -963,3 +963,119 @@ end
 2. update messages_controller create  - boradcast data to channel
 3. write some JS to handle the data - receive the data and append to chat window
 4. update styling to handle the data
+
+## 2.3.3 Generate chatroom channel
+```console
+rails generate channel chatroom
+```
+routes.rb
+```ruby
+mount ActionCable.server, at: '/cable'
+```
+chatroom_channel.rb
+```ruby
+class ChatroomChannel < ApplicationCable::Channel
+  def subscribed
+    stream_from "chatroom_channel"
+  end
+
+  def unsubscribed
+    # Any cleanup needed when channel is unsubscribed
+  end
+end
+
+```
+**needed in production** 
+in config
+```ruby
+ config.action_cable.allowed_request_origins = ["https://cloudbase_url"]
+```
+
+## 2.3.5 display messages using partial
+make usre the form is submitted by async javascript, remote true
+```ruby
+ <%= form_for @message, class: "ui reply form", url: message_path, remote: true do |f|%>
+```
+
+in controller sending out the broad cast message, update the broadcast message with a html message, use a private controller method build it, which can use existing partial, add the local variable 
+```ruby
+    def create
+        message = @current_user.messages.build(message_params)
+        if message.save
+            ActionCable.server.broadcast "chatroom_channel", 
+            mod_message: message_render(message)
+        end
+    end
+
+    private
+    #render the message partial from controller
+    def message_render(message)
+        render(partial: 'message', locals: {message: message})
+    end
+```
+then update the coffe script
+```coffee
+App.chatroom = App.cable.subscriptions.create "ChatroomChannel",
+  connected: ->
+    # Called when the subscription is ready for use on the server
+
+  disconnected: ->
+    # Called when the subscription has been terminated by the server
+
+  received: (data) ->
+    $('#message-container').append data.mod_message
+
+```
+
+## 2.3.6 add scrolling to chat window
+add id to the view
+```html
+<div class="content" id="messages">  
+        <div class="ui  feed" id="message-container">
+            <%= render @messages %>
+        </div>
+</div>
+```
+add overflow auto to css
+```css
+#messages {
+    height: 15em; // this line affect the look
+    overflow: auto
+}
+```
+
+add scroll down function to application js. and use it everytime reload chatroom
+```javascript
+scroll_bottom =function(){
+  if ($('#messages').length > 0 ){
+    $('#messages').scrollTop($('#messages')[0].scrollHeight);
+  }
+}
+
+$(document).on('turbolinks:load',function (){
+  $('.ui.dropdown').dropdown();
+  $('.message .close')
+  .on('click', function() {
+    $(this)
+      .closest('.message')
+      .transition('fade')
+    ;
+  });
+  scroll_bottom();
+})
+
+```
+in channel coffeee, invoke this funciton too, when message received.
+```coffee
+App.chatroom = App.cable.subscriptions.create "ChatroomChannel",
+  connected: ->
+    # Called when the subscription is ready for use on the server
+
+  disconnected: ->
+    # Called when the subscription has been terminated by the server
+
+  received: (data) ->
+    $('#message-container').append data.mod_message
+    scroll_bottom()
+
+```
