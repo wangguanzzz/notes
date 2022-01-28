@@ -59,3 +59,9 @@ heroku run rails db:migrate
 ```
 bundle config mirror.https://rubygems.org https://gems.ruby-china.com
 ```
+
+## 2.4.5
+to quickly create controller and method, can use below command
+```console
+rails generate controller welcome index
+```

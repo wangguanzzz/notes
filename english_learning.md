@@ -7,3 +7,6 @@
 9. menu
 10. besides ...
 12. what you like the least/ the most
+13. it is almost 31
+14. it is a bit chiling
+

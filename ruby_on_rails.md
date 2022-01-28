@@ -1079,3 +1079,36 @@ App.chatroom = App.cable.subscriptions.create "ChatroomChannel",
     scroll_bottom()
 
 ```
+
+## 2.4.6 Devise -- install devise gem
+https://github.com/heartcombo/devise#starting-with-rails
+
+```ruby
+# Gemfile
+gem 'devise'
+```
+
+```console
+rails generate devise:install
+```
+## 2.4.7 create user with Device
+```console
+rails generate devise User
+rails db:migrate
+```
+```ruby
+#application.html.erb, this is required in devise instruments
+  <body>
+    <p class="notice"><%= notice %></p>
+    <p class="alert"><%= alert %></p>
+    <%= yield %>
+  </body>
+```
+add checking in all controller
+```ruby
+class ApplicationRecord < ActiveRecord::Base
+  before_action :authenticate_user!
+  self.abstract_class = true
+end
+
+```
