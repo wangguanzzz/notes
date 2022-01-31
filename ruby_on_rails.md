@@ -1124,3 +1124,46 @@ rails generate devise:views:bootstrap_templates
 ## 2.5.2 dismissable in devise
 https://github.com/hisea/devise-bootstrap-views/blob/master/lib/devise_bootstrap_views_helper.rb
 you can check this example
+
+## 2.5.3 preparation for iex cloud
+```ruby
+#Gemfile
+gem 'iex-ruby-client'
+```
+follow the instruction in 
+https://github.com/dblock/iex-ruby-client
+
+## create stock model
+quicker way, use generate model, will both create migraiton and model and test files
+```console
+rails g model Stock ticker:string name:string last_price:decimal
+```
+notice decimal is reliable , float cannot be used for price
+
+## 2.5.7 rails handle secret
+```console
+EDITOR="code --wait" rails credentials:edit
+```
+access the credential from rails
+```ruby
+#aws is the object, access_key_id is the key
+Rails.application.credentials.aws[:access_key_id]
+```
+
+## 2.5.9
+create controller generate
+```console
+rails g controller users my_portfolio
+```
+
+show icons
+https://github.com/bokmann/font-awesome-rails
+
+```ruby
+gem 'font-awesome-rails'
+```
+
+show icon
+```ruby
+<%= fa_icon "search 2x"%>
+```
