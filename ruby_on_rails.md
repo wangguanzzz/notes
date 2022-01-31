@@ -1,4 +1,4 @@
-## rails + boostrap integraiton
+## rails + bootstrap integraiton
 rails 6.1.4.1
 ruby 2.7.4
 yarn 1.22.17
@@ -1106,9 +1106,21 @@ rails db:migrate
 ```
 add checking in all controller
 ```ruby
-class ApplicationRecord < ActiveRecord::Base
-  before_action :authenticate_user!
-  self.abstract_class = true
+class ApplicationController < ActionController::Base
+    before_action :authenticate_user!
 end
 
 ```
+## 2.5.1 update devise view
+```ruby
+#Gemfile
+gem 'devise-bootstrap-views', '~>1.0'
+```
+bundle install it and then
+```console
+rails generate devise:views:bootstrap_templates
+```
+
+## 2.5.2 dismissable in devise
+https://github.com/hisea/devise-bootstrap-views/blob/master/lib/devise_bootstrap_views_helper.rb
+you can check this example
