@@ -41,3 +41,6 @@ model chnages for different types:
 * Scale
 
 ## Recap IAM
+1. when get MFA QR code picture, better to take a photo and save it in s3. in case the mobile is lost. 
+2. don't give root user key/secret key access
+3. power user doesn't have access to IAM

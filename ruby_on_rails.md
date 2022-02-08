@@ -1167,3 +1167,189 @@ show icon
 ```ruby
 <%= fa_icon "search 2x"%>
 ```
+
+## 2.6.2 display search result in json
+example of render json 
+```ruby
+class StocksController < ApplicationController
+    def search
+        @stock = Stock.new_lookup(params[:stock])
+        render json: @stock
+    end
+end
+
+```
+
+## 2.6.3 get rid of invalid parameter
+present method check if the param[:stock] is blank , it does the opposite of blank
+https://blog.appsignal.com/2018/09/11/differences-between-nil-empty-blank-and-present.html
+
+```ruby
+if params[:stock].present?
+```
+
+## 2.6.4 use ajax for submission
+add remote: true, this makes the form submission won't refresh the page, the redirect_to in controller also not working
+```ruby
+<%= form_tag search_stock_path, method: :get,remote: true  do %>
+```
+this result in data-remote="true", you can check the result in chrome dev network preview
+
+* controller level
+```ruby
+if @stock
+    respond_to do | format |
+        format.js { render partial: 'users/result' }
+    end
+    #render 'users/my_portfolio'
+else
+```
+* view level ( j alias as escape_javascript )
+```javascript
+#views/users/_result.js.erb
+document.querySelector('#results').innerHTML= '<%= j render 'users/result.html'%>'
+```
+
+## 2.6.6 update code including the flash message
+controller
+```ruby
+class StocksController < ApplicationController
+    def search
+        if params[:stock].present?
+            @stock = Stock.new_lookup(params[:stock])
+            if @stock
+                respond_to do | format |
+                    format.js { render partial: 'users/result' }
+                end
+                #render 'users/my_portfolio'
+            else
+                respond_to do | format |
+                    flash.now[:alert] = "Please enter a valid symbol"
+                    format.js { render partial: 'users/result' }
+                end 
+
+            end
+        else
+            respond_to do | format |
+                flash.now[:alert] = "Please enter a  symbol to search"
+                format.js { render partial: 'users/result' }
+            end 
+        end
+        
+    end
+end
+```
+js in view
+```ruby
+#_result.html.erb
+<div class="result-block">
+    <%=render "layouts/message"%>
+</div>
+<%if @stock%>
+<div class="card card-header results-block">
+    <strong>Symbol: </strong> <%=@stock.ticker %>
+    <strong>Name: </strong> <%=@stock.name %>
+    <strong>Price: </strong> <%=@stock.last_price %>
+</div>
+<%end %>
+```
+
+## 2.6.8  setup UserStock many to many relationship
+1. create resource UserStock
+```console
+rails g resource UserStock user:references stock:references
+```
+2.  add relationship in Stock
+```ruby
+class Stock < ApplicationRecord
+  has_many :user_stocks
+  has_many :users, through: :user_stocks
+```
+
+## 2.6.9 stock listing view
+devise helper methods:
+https://github.com/heartcombo/devise#controller-filters-and-helpers
+
+## 2.7.0 
+check request path
+```ruby
+ <li class="nav-item <%= 'active' if request.path == my_portfolio_path %>">
+```
+
+## 2.7.1 track stock from front-end
+add buttont to "add to portfolio",
+in user_stocks_path , the parameter can be added
+```ruby
+ <%= link_to "add to portfolio", user_stocks_path(user: current_user, ticker: @stock.ticker), class: "btn btn-xs btn-success" , method: :post %>
+ ```
+
+ **method to search the object**
+ ```ruby
+ Stock.where(ticker: 'GOOG')
+ ```
+
+ example:
+ ```ruby
+ class Stock < ApplicationRecord
+  has_many :user_stocks
+  has_many :users, through: :user_stocks
+
+  validates :name, :ticker_symbol , presence: true
+
+  def self.new_lookup(ticker_symbol)
+    client = IEX::Api::Client.new(
+      publishable_token: Rails.application.credentials.iex_client[:public_key],
+      secret_token: Rails.application.credentials.iex_client[:secret_key],
+      endpoint: 'https://sandbox.iexapis.com/v1'
+    )
+    begin
+      price = client.price(ticker_symbol)
+      company = client.company(ticker_symbol)
+      Stock.new(ticker: ticker_symbol, name:  company.company_name, last_price: price)
+    rescue => exception
+      return nil
+    end
+  end
+
+  def self.check_db(ticker_symbol)
+    where(ticker: ticker_symbol).first
+  end
+end
+
+ ```
+
+
+
+ delete all user stocks in console
+ ```
+ user.stocks.delete_all
+ ```
+ ## 2.7.2 
+Model methods,
+1. remember model is not a normal class, it is ApplicaitonRecord
+2. the methods and association can be directly used.
+3. user "where" to search, helper methods like exists? blank? 
+```ruby
+ class User < ApplicationRecord
+  has_many :user_stocks
+  has_many :stocks, through: :user_stocks
+  
+  # Include default devise modules. Others available are:
+  # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
+  devise :database_authenticatable, :registerable,
+         :recoverable, :rememberable, :validatable
+
+  def stock_already_tracked?(ticker_symbol)
+    stock = Stock.check_db(ticker_symbol)
+    return false unless stock
+    stocks.where(id: stock.id).exists?
+  end
+
+  def under_stock_limit?
+    stocks.count < 10
+  end
+  def can_track_stock?(ticker_symbol)
+    under_stock_limit? && !stock_already_tracked?(ticker_symbol)  
+  end
+end
+```
