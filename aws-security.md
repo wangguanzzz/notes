@@ -44,3 +44,22 @@ model chnages for different types:
 1. when get MFA QR code picture, better to take a photo and save it in s3. in case the mobile is lost. 
 2. don't give root user key/secret key access
 3. power user doesn't have access to IAM
+
+## S3 bucket policy
+typical usage:
+* grant cross account access to bucket
+* your bucket policy is greater than 10k and smaller than 20k
+
+the bucket policy needs the target , not only the bucket arn , it needs to be arn:xxx:s3//*
+* bucket policy apply to the whole bucket
+* ACL apply to the objects
+
+the rule of the thumb
+**The explicit deny always trumps, the deny over allow**
+
+## S3 ACL
+aws encourage to use IAM and bucket policy, below is the use case for ACL
+1. need fine grained permissions on individual files/objects
+2. if the policy is larger than 20K
+
+permission control on a specific AWS user can be only done with API/cli , NOT in the console

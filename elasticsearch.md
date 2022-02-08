@@ -402,3 +402,7 @@ integrety is handled in applicaiton level
 6. index. disables indexing for a field, values are still stored in _source, it still can be used for aggregation
 7. null_value, replace null value to a default value
 8. copy_to parameter, copy multiple fields values into a "group field" , eg first_name, last_name => full name
+
+## 5.5 update existing mappings
+for example. product_id include letters
+from long to keyword is not allowed , as the field is already indexed

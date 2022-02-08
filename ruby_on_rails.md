@@ -1353,3 +1353,16 @@ Model methods,
   end
 end
 ```
+
+link block
+```ruby
+<%=link_to edit_user_registration_path, class: "dropdown-item" do  %>
+    <%=fa_icon('edit') %> Edit Profile
+<% end %>
+```
+
+## add more fields for user in devise
+https://github.com/heartcombo/devise#strong-parameters
+
+
+## self referential association --add friedns
