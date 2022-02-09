@@ -1366,3 +1366,45 @@ https://github.com/heartcombo/devise#strong-parameters
 
 
 ## self referential association --add friedns
+1. remember to draw the table diagram first
+2. create friendship
+```console
+rails g model Friendship user:references
+```
+3. update the migraiton file
+```ruby
+class CreateFriendships < ActiveRecord::Migration[6.1]
+  def change
+    create_table :friendships do |t|
+      t.references :user, null: false, foreign_key: true
+#append this line
+      t.references :friend, references: :users, foreign_key: {to_table: :users}
+      t.timestamps
+    end
+  end
+end
+```
+4. update the friendship model
+```ruby
+class Friendship < ApplicationRecord
+  belongs_to :user
+  belongs_to :friend, class_name: 'User'
+end
+
+```
+
+5. update the user model
+```ruby
+class User < ApplicationRecord
+  has_many :user_stocks
+  has_many :stocks, through: :user_stocks
+  has_many :friendships
+  has_many :friends, through: :friendships
+  
+```
+6. add friend in console
+```ruby
+u1.friends << u2
+```
+
+```
