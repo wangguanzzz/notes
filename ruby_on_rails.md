@@ -1415,3 +1415,13 @@ User.where("email like ?", "xxx")
 User.where("email like ?", "%xxx")
 ```
 
+## model level method 
+**for model level method, the argument better to use id, avoid using another ApplicationRecord**
+
+
+## user profile
+show user profile with devise
+1. add in route
+```ruby
+resource :users, only: [:show]
+```

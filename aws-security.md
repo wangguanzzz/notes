@@ -64,3 +64,15 @@ aws encourage to use IAM and bucket policy, below is the use case for ACL
 
 permission control on a specific AWS user can be only done with API/cli , NOT in the console
 
+## policy conflict
+```
+"aws:SecureTransport": false
+```
+means access from http (not https)
+
+## s3 cross region replication
+by default , it is using SSL to do replicate
+it is 1 to 1 , version on source needed turn on, a ss role will be created.
+if the source bucket owner doesn't own the object, the object own nmst grant the bucket owner READ and READ_ACP permission
+
+SSE-C is not replicated, delete can only replicate the delete mark
