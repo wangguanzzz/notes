@@ -56,10 +56,11 @@ the bucket policy needs the target , not only the bucket arn , it needs to be ar
 
 the rule of the thumb
 **The explicit deny always trumps, the deny over allow**
-
+**least privilege in aws, if nothing is said, by default is deny**
 ## S3 ACL
 aws encourage to use IAM and bucket policy, below is the use case for ACL
 1. need fine grained permissions on individual files/objects
 2. if the policy is larger than 20K
 
 permission control on a specific AWS user can be only done with API/cli , NOT in the console
+

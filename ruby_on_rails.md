@@ -1407,4 +1407,11 @@ class User < ApplicationRecord
 u1.friends << u2
 ```
 
+## 2.8.1 search user /friends
+**how to search in general**
+```ruby
+User.where("email like ?", "xxx")
+#user wild card
+User.where("email like ?", "%xxx")
 ```
+
