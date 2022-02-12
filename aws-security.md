@@ -76,3 +76,15 @@ it is 1 to 1 , version on source needed turn on, a ss role will be created.
 if the source bucket owner doesn't own the object, the object own nmst grant the bucket owner READ and READ_ACP permission
 
 SSE-C is not replicated, delete can only replicate the delete mark
+
+## securing S3 using cloudfront
+
+* in cloudfront, you could request or import a certificate with ACM (aws certificate manager)
+* cloudfront cannot borrow the certificate from loadbalancer
+* cloudfront side , it can lock down the access from S3
+
+## using SSL ceritificate with cloudfront
+* defualt cloudfront certificate: *.cloudfront.ent domain name access,
+* your domain name, you need a custom certificate
+* if you use certificate manager, hte certificate must be in the region of cloudfront
+* alternatively , certificate can be stored in IAM using IAM cli

@@ -1425,3 +1425,22 @@ show user profile with devise
 ```ruby
 resource :users, only: [:show]
 ```
+
+## 2.9.0
+
+skip before action
+```ruby
+class WelcomeController
+  skip_before_action :authenticate_user!, only: [:index]
+  def index
+  end
+end
+```
+
+install bootstrap
+```
+rails generate bootstrap:install static
+```
+
+**email setting in heroku**
+https://www.udemy.com/course/the-complete-ruby-on-rails-developer-course/learn/lecture/3853538#overview
