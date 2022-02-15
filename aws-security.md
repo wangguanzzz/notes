@@ -88,3 +88,7 @@ SSE-C is not replicated, delete can only replicate the delete mark
 * your domain name, you need a custom certificate
 * if you use certificate manager, hte certificate must be in the region of cloudfront
 * alternatively , certificate can be stored in IAM using IAM cli
+
+## cognito
+1. user -> user pool <-> (JWT tokens)  Facebook, Google, Amazon
+2. use JWT token with Identity Pool, get aws credentials
