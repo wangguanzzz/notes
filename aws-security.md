@@ -93,3 +93,16 @@ SSE-C is not replicated, delete can only replicate the delete mark
 1. user -> user pool <-> (JWT tokens)  Facebook, Google, Amazon
 2. use JWT token with Identity Pool, get aws credentials
 3. user pool to manage user sign-up and sign-in  directly or via web identity providers
+
+## Glacier Vault Lock
+Vaults: containers which store one or more Archives
+add compliance control for vault: vault lock policy
+* similiar to IAM policy
+* configure WORM ( write once ,read many)
+* create data retention policies
+**lock policy are immutable**
+
+## AWS Organizations
+consolidate multiple acccount into one organization account
+ * for groups/OU access control
+ * SCP control, create permission boundary
