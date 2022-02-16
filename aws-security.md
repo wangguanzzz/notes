@@ -92,3 +92,4 @@ SSE-C is not replicated, delete can only replicate the delete mark
 ## cognito
 1. user -> user pool <-> (JWT tokens)  Facebook, Google, Amazon
 2. use JWT token with Identity Pool, get aws credentials
+3. user pool to manage user sign-up and sign-in  directly or via web identity providers
