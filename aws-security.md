@@ -106,3 +106,11 @@ add compliance control for vault: vault lock policy
 consolidate multiple acccount into one organization account
  * for groups/OU access control
  * SCP control, create permission boundary
+
+## AWS CloudTrail
+AWS cloudtrail records AWS API calls, in detail level,(source ip, serivce, caller id, response), delivery every 5 minutes
+it doesn't record ssh and RDP.
+* after-fact incident investigation
+* near-real time intrusion detection
+* compliance
+
