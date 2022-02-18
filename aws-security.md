@@ -88,3 +88,15 @@ SSE-C is not replicated, delete can only replicate the delete mark
 * your domain name, you need a custom certificate
 * if you use certificate manager, hte certificate must be in the region of cloudfront
 * alternatively , certificate can be stored in IAM using IAM cli
+
+## securing s3 using pre-signed URLs
+only using the cli, it will generate the URLS
+```
+aws s3 presign s3://<URL> --expires-in 300 
+```
+## Security Token Service (STS)
+1. work with Federation (AD)
+2. Federation with mobile apps
+3. crosss account access
+
+**congnito is an Identity Broker (used to mapping the ID in and ID store to STS )
