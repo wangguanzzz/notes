@@ -89,7 +89,6 @@ SSE-C is not replicated, delete can only replicate the delete mark
 * if you use certificate manager, hte certificate must be in the region of cloudfront
 * alternatively , certificate can be stored in IAM using IAM cli
 
-<<<<<<< HEAD
 ## securing s3 using pre-signed URLs
 only using the cli, it will generate the URLS
 ```
@@ -101,7 +100,6 @@ aws s3 presign s3://<URL> --expires-in 300
 3. crosss account access
 
 **congnito is an Identity Broker (used to mapping the ID in and ID store to STS )
-=======
 ## cognito
 1. user -> user pool <-> (JWT tokens)  Facebook, Google, Amazon
 2. use JWT token with Identity Pool, get aws credentials
@@ -127,4 +125,3 @@ it doesn't record ssh and RDP.
 * near-real time intrusion detection
 * compliance
 
->>>>>>> ad495098e19a1e48f10ad52e34890e9c08647fc1
