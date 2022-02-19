@@ -125,3 +125,11 @@ it doesn't record ssh and RDP.
 * near-real time intrusion detection
 * compliance
 
+## AWS config
+assess, audit and evaluate the configuration of the AWS resources. like a security camera.
+
+rules: the desired value of the resources
+an **aggregator** is an AWS config resource type collects AWS configuration and compliance from
+* multiple account
+* multiple region
+* organizational accounts
