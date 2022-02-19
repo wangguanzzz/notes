@@ -133,3 +133,9 @@ an **aggregator** is an AWS config resource type collects AWS configuration and 
 * multiple account
 * multiple region
 * organizational accounts
+
+it has AWS defined & customizing rules, remediation action can be assigned with rules.
+resources can show all aws resources and its compliance situation.
+
+AWS config requires an IAM role , read only permission to resources, write access to s3, publish to SNS
+CloudTrail can be used to monitor Config turn off action
