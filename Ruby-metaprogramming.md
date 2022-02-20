@@ -108,6 +108,7 @@ end
 ```
 
 ## 扁平作用域 （穿越作用域门）
+扁平作用域，指避免使用作用域门， 使得变量可以互相访问的技术。
 可以用以下方法替代class关键字
 ```ruby
 my_var = "hello"
@@ -119,3 +120,42 @@ MyClass = Class.new do
      puts "#{my_var}"
   end 
 ```
+
+## 3.4 instance_eval() 
+任何对象可以调 instance_eval方法 执行一个块。 这个对象会成为接收者self, 在块内。 传递给instance_eval()的块叫作**上下文探针**， instance_eval可以打破封装， 访问对象的实例变量。
+
+### 洁净室
+洁净室是一种类和对象，目的是为了执行块， 这种类通常提供了有用的方法供块来调用。
+
+### 延迟执行
+
+可以通过 Proc类把块变成一个对象，然后再执行
+```ruby
+inc = Proc.new { |x| x+1}
+inc.call(2) #=> 3
+```
+或者可以通过内核方法 lambda 来生成一个 Proc对象，注意lambda比Proc更为通用。
+
+```ruby
+dec = lambda { |x| x-1} 
+dec.class #=> Proc
+```
+
+块就像是方法的匿名参数，但是不方便把块传给另一个方法，或者保存成Proc，可以用&操作符
+```ruby
+def test
+  yield
+end
+
+def metatest(a,b,&operation)
+  test(&operation)
+end
+
+metatest(2,3) { puts 'hello'}
+```
+&操作符，在参数时，用来接受一个块， 其他时候，后面的变量是一个Proc对象， 可以加&作为块使用。也可以把&去掉， 用Proc#call()来调用。
+
+### 对象方法分离
+对象的方法可以用object#method()方法获取。 得到一个Method对象， 和Proc/lambda的作用域 （定义作用域，闭包） 不同， 它会在他自身所在的对象作用域执行。
+
+# 类定义
