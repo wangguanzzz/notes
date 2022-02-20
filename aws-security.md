@@ -139,3 +139,9 @@ resources can show all aws resources and its compliance situation.
 
 AWS config requires an IAM role , read only permission to resources, write access to s3, publish to SNS
 CloudTrail can be used to monitor Config turn off action
+
+## CloudWatch
+* CloudWatch
+  standard montiroing : 5min, detail: 1min
+* CloudWatch Logs
+* CloudWatch Events
