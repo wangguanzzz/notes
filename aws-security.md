@@ -145,3 +145,15 @@ CloudTrail can be used to monitor Config turn off action
   standard montiroing : 5min, detail: 1min
 * CloudWatch Logs
 * CloudWatch Events
+
+
+
+# Security Assesment Methodology
+1. IAM 
+2. Infrastructure Protection
+3. Data Protection
+4. Detective Controls
+5. Incident Response
+
+Tools set
+* Prowler Scan

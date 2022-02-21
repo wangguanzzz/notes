@@ -159,3 +159,37 @@ metatest(2,3) { puts 'hello'}
 对象的方法可以用object#method()方法获取。 得到一个Method对象， 和Proc/lambda的作用域 （定义作用域，闭包） 不同， 它会在他自身所在的对象作用域执行。
 
 # 类定义
+
+## 当前类
+类只是增强的模块。
+**在类定义时，类本身充当了当前对象self ， 同理，也有当前类（模块）， 当定义方法时，该方法变成当前类的一个实例方法**
+在顶级作用域定义方法时， 当前类是Object（main的类）， 所以定义的是Object Class的实例方法
+
+class_eval 可以在不知道类名的情况下打开类，并定义方法
+```ruby
+def add_method_to(a_class)
+  a_class.class_eval do
+    def m; 'hello'; end
+  end
+end
+```
+
+* 和instance_eval不同， instance_eval仅修改self, class_eval同时修改了self，和当前类
+* class_eval和Class不同在，可以使用小写字母变量，使用了扁平作用域
+
+## 类实例变量
+看下面例子,非常重要，容易和java搞混
+```ruby
+class MyClass
+  # Class MyClass 实例变量, 此时self 是Class MyClass
+  @my_var = 1
+
+  def self.read; @my_var; end
+  def write; @my_var =2; #生成对象的实例变量 
+  end
+  def read; @my_var; end 
+end
+```
+**避免使用 @@类变量， 尽量使用上面的类实例变量**
+
+## 4.3 单件方法
