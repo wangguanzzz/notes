@@ -146,6 +146,12 @@ CloudTrail can be used to monitor Config turn off action
 * CloudWatch Logs
 * CloudWatch Events
 
+## Setup Alert if the root user login
+* CloudTrail log can be redirected to CloudWatch.
+* create a specific metric filter
+
+## CloudHSM
+* dedicated hardware security module to ensure data security
 
 
 # Security Assesment Methodology
@@ -157,3 +163,4 @@ CloudTrail can be used to monitor Config turn off action
 
 Tools set
 * Prowler Scan
+
