@@ -193,3 +193,32 @@ end
 **避免使用 @@类变量， 尽量使用上面的类实例变量**
 
 ## 4.3 单件方法
+ruby允许给单个对象添加方法。
+```ruby
+str = "abc"
+def str.title?
+  self.update == self
+end
+# 检查单件方法
+str.singleton_methods
+```
+类方法其实也是单件方法（类也是对象）.  def self.method() 等于 def Class.method()
+## 类宏
+写getter和setter：
+```ruby
+class MyClass
+  def my_att=(value); @my_att=value; end
+  def my_att; @my_att; end
+end
+```
+Module#attr_ 可以定义访问方法 attr_reader() , attr_writer(), attr_accessor()
+```ruby
+class MyClass
+  attr_accessor :my_att
+end
+```
+在类宏中，经常会使用send, Object#send(method,xargs,&block)
+
+
+## 4.4 EigenClass 单件类
+单件类和单例没有关系，他是一个对象的单件方法的存活之所。
