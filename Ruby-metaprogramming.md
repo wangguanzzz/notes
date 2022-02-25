@@ -221,4 +221,89 @@ end
 
 
 ## 4.4 EigenClass 单件类
-单件类和单例没有关系，他是一个对象的单件方法的存活之所。
+单件类和单例没有关系，它是一个class,但只有一个实例，而且不能被继承，他是一个对象的单件方法的存活之所，其实就是eigenclass的实例方法。
+获得eigenclass 作用域的操作
+```ruby
+class << an_obj
+ #代码
+end
+#例子,来获取enginclasss
+obj = Object.new
+eigenclass = class << obj
+  self
+end
+```
+instance_eval 其实会修改self，和接受者的eigenclass
+定义类方法
+1. 定义在类上
+```ruby
+class MyClass
+  def self.my_method; end
+end
+```
+2. 定义在eigenclass 上
+```ruby
+class MyClass
+  class << self
+    def my_method; end
+  end
+end
+```
+
+方法查找路径：
+（1） 对象
+（2） 对象的eigenclass  找单件方法
+（3） eigenclass 的superclass 是该对象的类D (假设 D < C)
+(4) 类的实例方法在类D 里面
+（5） singleton方法在类D 的eigenclass 里面
+（6） eigenclass的超类是eigenclass
+
+### 类属性
+```ruby
+class MyClass
+  class << self
+    attr_accesssor :c
+  end
+end
+
+MyClass.c = 'it works'
+```
+
+### 类扩展
+```ruby
+module MyModule
+  def my_method; 'hello'; end
+end
+
+class MyClass
+  class << self
+    include MyModule
+  end
+end
+MyClass.my_method
+```
+
+### 用 Object#extend() 进行类扩展和实例扩展
+extend是在接受者的eigenclass中包含模块的快捷方式
+```ruby
+obj = Object.new
+obj.extend MyModule
+
+class MyClass
+  extend MyModule
+end
+
+```
+
+## 4.6 别名
+
+
+# 7 ActiveRecord 的设计
+
+Kernel#autoload() 方法跟 模块名和文件名， 次一次引用该模块时，才导入文件
+```ruby
+module ActiveRecord
+  autoload :Base, 'active_record/base'
+  ...
+end
+```
