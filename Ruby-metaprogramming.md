@@ -125,7 +125,7 @@ MyClass = Class.new do
 任何对象可以调 instance_eval方法 执行一个块。 这个对象会成为接收者self, 在块内。 传递给instance_eval()的块叫作**上下文探针**， instance_eval可以打破封装， 访问对象的实例变量。
 
 ### 洁净室
-洁净室是一种类和对象，目的是为了执行块， 这种类通常提供了有用的方法供块来调用。
+洁净室是一种类和对象，目的是为了执行块， 这种类通常提供了有用的方法供块来调用。 举个例子 $SAFE 全局变量可以在Proc对象中重定义,call之后就在Proc对象内执行幷销毁.并不会影响外部.
 
 ### 延迟执行
 
@@ -316,6 +316,81 @@ end
 2. 永远不该把环绕别名加载两次。
 
 # 5.编写代码的代码
+
+### Kernel#eval
+* instance_eval()
+* class_eval()
+* Kernel#eval() 直接执行代码字符串
+
+### Binding类
+Kernel#binding() 方法可以创建Binding对象, 它携带它所在的作用域. **对于*eval()家族的方法可以传递一个Binding 对象作为额外参数.
+
+```ruby
+class MyClass
+  def my_method
+    @x =1 
+    binding
+  end
+end
+
+b = MyClass.new.my_method
+eval "@x", b   # => 1
+```
+
+使用irb , 可以打开一个嵌套话
+```ruby
+#irb
+s = 'abc'
+irb s
+reverse #=> cba 
+```
+
+大块代码可以使用文档格式
+```ruby
+s = << END
+ THIS IS some "code"
+  abc
+END
+```
+
+**TOPLEVEL_BINDING是代表顶级作用域的Binding对象的常量**
+
+
+## 污染对象和安全级别
+1. web表单, 文件,命令行输入的对象,或者系统变量, 可以通过 tainted?() 检测
+2. $SAFE 全局安全性, 0 都可以, 2,禁止大多数文件操作. 4 不能自由退出程序
+
+### 拟态方法
+指用两个方法模仿 attr_accesssor() 创建的方法.
+```ruby
+def my_attr
+  @my_attr
+end
+
+def my_attr=(value)
+  @my_attr = value
+end
+```
+
+## 钩子方法
+例如 Class#inherited() 当class被继承时,它会被调用.成为钩子方法.
+* Class#inherited()
+* Module#included() **应用最为广泛**
+* Module#extend_object()
+* Module#method_added /undefined(),removed()
+
+例子, 当include module 时,自动导入模块的子模块的方法
+```ruby
+module MyMixin
+  def self.included(base)
+    base.extend(ClassMethods)
+  end
+  module ClassMethods
+    def x
+    end
+  end
+end
+```
 
 # 7 ActiveRecord 的设计
 
