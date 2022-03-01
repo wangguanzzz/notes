@@ -401,3 +401,22 @@ module ActiveRecord
   ...
 end
 ```
+环绕别名的例子
+```ruby
+class MyClass
+  def greet
+    puts 'hello'
+  end
+end
+
+class MyClass
+  def greet_with_log
+    puts "call_method"
+    greet_without_log
+    puts "...method called"
+  end
+
+  alias_method :great_without_log, :greet
+  alias_method :greet, :great_with_log
+end
+```
