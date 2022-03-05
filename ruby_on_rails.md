@@ -1444,3 +1444,24 @@ rails generate bootstrap:install static
 
 **email setting in heroku**
 https://www.udemy.com/course/the-complete-ruby-on-rails-developer-course/learn/lecture/3853538#overview
+
+## active storage and image
+```
+rails active_storage:install
+rails db:migrate
+```
+model level
+```ruby
+class Cat < ApplicationRecord
+  has_one_attached :image
+end
+```
+view level
+```html
+<% if cat.image.attached? %>
+  <%= image_tag cat.image, class: "..", style: ".."%>
+<% end %>
+
+<%= form.file_field :image%>
+
+```
