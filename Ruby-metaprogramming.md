@@ -420,3 +420,4 @@ class MyClass
   alias_method :greet, :great_with_log
 end
 ```
+
