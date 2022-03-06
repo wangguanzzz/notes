@@ -1465,3 +1465,12 @@ view level
 <%= form.file_field :image%>
 
 ```
+
+### handle pciture size
+* model level
+
+* view level
+```html
+<%= image_tag @item.image.variant(resize_to_limit: [150, nil]) %>
+```
+https://edgeguides.rubyonrails.org/active_storage_overview.html
