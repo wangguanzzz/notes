@@ -153,6 +153,17 @@ CloudTrail can be used to monitor Config turn off action
 ## CloudHSM
 * dedicated hardware security module to ensure data security
 
+## AWS Inspector
+it can scan network accessibilty and host 
+* create "assessment target"
+* install agents on EC2 instances
+* create "assessment template"
+* perform "assessment run"
+* review findings against rules
+
+## Trusted Advisor
+cost optimization, performance, security, fault tolerance
+
 
 # Security Assesment Methodology
 1. IAM 
