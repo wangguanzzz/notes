@@ -1474,3 +1474,54 @@ view level
 <%= image_tag @item.image.variant(resize_to_limit: [150, nil]) %>
 ```
 https://edgeguides.rubyonrails.org/active_storage_overview.html
+
+
+## set global variable  like page title
+```ruby
+class ApplicationController < ActionController::Base
+  before_filter :set_title
+
+  def set_title
+    # 在其他的controller, 这个instance variable 也有，也可以被覆盖
+    @page_title = "test title"
+  end
+end
+```
+
+in application.html.erb
+```
+<head>
+  <title><%= pagetitle%></title>
+</head>
+```
+
+## heroku email sender
+add twilio sendgrid add-on in heroku in app
+
+
+## webpack add flatpicker (make the date selection in text field with javascript)
+1. yarn add flatpickr
+2. in packs/application.js
+```javascript
+//append
+import flatpickr from "flatpickr"
+//webpackr will know this is the css
+reuiqre("flatpickr/dist/flatpickr.css")
+document.addEventListener("turbolinks:load", ()=>{
+  flatpickr("[data-behaviro='flatpickr']",{
+    altInput: true,
+    altFormat: "F j, Y",
+    dateFormat: "Y-m-d",
+  })
+})
+```
+3. in application.html.erb , load the css in webpacker
+```html
+    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+```
+4. in using html
+```html
+<%= form.text_field :abc, date: {behaveior: 'flatpickr' }%>
+```
