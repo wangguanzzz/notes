@@ -47,3 +47,4 @@ cloud adoption framework
 ## JAVA tricks
 * turn on java GC log -Xlog:gc=debug:file=/tmp/xxx:time,uptime,level,tags:filecount=5,filesize=100m
 * jacoco, can be turn on in Maven
+

@@ -175,3 +175,31 @@ cost optimization, performance, security, fault tolerance
 Tools set
 * Prowler Scan
 
+## KMS
+* key administrator | key user | only the administrator can update key polic, key user, etc
+* even the s3 bucket is public, if it is encrypted by KMS, the one without permission still cannot access it.
+* schedule key deletion (need to set some days), when key in pending deletion status, user cannot use it, he/she will get a warning
+
+## external KMS (CMK)
+1. create a CMK with no key material
+2. download a public key (wrapping key) and import token (you cannot upload same key and material twice)
+3. encrypt the key material
+4. import the key material
+
+CMK consists of 
+* alias
+* creation date
+* description
+* key state
+* key material ( either customer provided or AWS provided ), which cannot be exported 
+
+why import your down key material
+* prove that randomness meets the compliance
+* extends existing processes to AWS
+* to be resilient to AWS failure by storing keys
+
+considerations for imported key material
+* availability and durablity is different
+* secure key generation is up to you 
+* no automtic rotation
+* ciphertexts are not portable between CMKs
