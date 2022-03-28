@@ -210,3 +210,6 @@ key rotation
 * for self uploaded key material case, you do it again and update application encrpytion one by one
 
 in put key pair, ec2 key pair can upload key pair ( kms cannot be used to ssh to ec2)
+
+* EBS can use KMS to encrypt including the root device, to change the root device encryption, you need to copy the snapshot to re-encrypt it.
+* you cannot copy kms key from one region to anohter
