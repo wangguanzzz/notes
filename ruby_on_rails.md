@@ -1189,7 +1189,8 @@ if params[:stock].present?
 ```
 
 ## 2.6.4 use ajax for submission
-add remote: true, this makes the form submission won't refresh the page, the redirect_to in controller also not working
+add remote: true, this makes the form submission won't refresh the page, the redirect_to in controller also not working;
+form_tag follow the ultimate submit url
 ```ruby
 <%= form_tag search_stock_path, method: :get,remote: true  do %>
 ```

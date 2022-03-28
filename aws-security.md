@@ -203,3 +203,10 @@ considerations for imported key material
 * secure key generation is up to you 
 * no automtic rotation
 * ciphertexts are not portable between CMKs
+
+key rotation
+* AWS managed keys rotation automatically every 3 years, you cannot delete it
+* CMK - once a year automatically (disabled by default ) or on-demand manually,  keys can be deleted but carefual! 
+* for self uploaded key material case, you do it again and update application encrpytion one by one
+
+in put key pair, ec2 key pair can upload key pair ( kms cannot be used to ssh to ec2)
