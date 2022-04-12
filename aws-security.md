@@ -213,3 +213,7 @@ in put key pair, ec2 key pair can upload key pair ( kms cannot be used to ssh to
 
 * EBS can use KMS to encrypt including the root device, to change the root device encryption, you need to copy the snapshot to re-encrypt it.
 * you cannot copy kms key from one region to anohter
+
+## ec2 -key pair
+* user can add new public key in .ssh/authorizedkeys, but it won't show in console
+* if the old key is removed, user can create image from ec2 and reasign the key
