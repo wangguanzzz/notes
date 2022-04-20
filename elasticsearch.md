@@ -406,3 +406,67 @@ integrety is handled in applicaiton level
 ## 5.5 update existing mappings
 for example. product_id include letters
 from long to keyword is not allowed , as the field is already indexed
+
+## 5.4 reindexing documents with the Reindex API
+```
+POST /_reindex
+{
+  "source" : {
+    "index": "source_index"
+    "query"(optional): {
+    }
+    "_source" : ["content" , "a", "b" , ...]
+  },
+  "dest" : {
+    "index": "destination_index"post 
+  },
+  "script (optional): {
+    "source": """
+      ..
+    """
+  }
+}
+```
+* in order to change the data type in the source, need to add the source segment,
+* it is ok to add query to only reindex partial documents
+* source filter , that remove the not needed fileds
+* using script can rename the property name
+
+## 5.5 defining the field alias
+sometimes it is not worth to reindex just for rename the field
+
+## 5.6 multi-field mappings
+in below way , the property indredient will be handled both as text (analyzer- inverted index), and keyword (index)
+```
+PUT /multi_field_test
+{
+  "mappings": {
+    "properties" : {
+      "ingredients" : {
+        "type": "text"
+        "fields": {
+          "keyword" : {
+            "type": "keyword"
+          }
+        }
+      },
+    }
+  }
+}
+```
+
+## index template
+
+index template is defined for every day or month indcies.
+if the setting or mapping is availabe in configuration of indcies, they will merge and index setting will override.
+
+retrive or delete the index template
+```
+get /_template/access-logs
+```
+
+## ECS ( Elastic Common Schema)
+apache log is called apache2.access.url; nginx is called nginx.access.url;
+ECS means that common fields are named as the same thing, eg @timestamp
+
+## dynamic mapping
