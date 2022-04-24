@@ -1,3 +1,6 @@
+## 1.0 basic architecture
+* node belongs to a cluster
+
 ## 13
 cluster -> nodes(ES instances)
 
@@ -409,7 +412,7 @@ from long to keyword is not allowed , as the field is already indexed
 
 ## 5.4 reindexing documents with the Reindex API
 ```
-POST /_reindex
+POST /_reindex?wait_for_completion=false
 {
   "source" : {
     "index": "source_index"
@@ -470,3 +473,77 @@ apache log is called apache2.access.url; nginx is called nginx.access.url;
 ECS means that common fields are named as the same thing, eg @timestamp
 
 ## dynamic mapping
+
+in dynamic mapping, for text, it will use multifield, both text and key word
+
+when index the document, if the field is explicit mapping , it works. if there is no mapping, it will use dynamic mapping
+
+## configure the dynamic mapping
+* there is date detection, numberic_detection
+* if in mapping add below, the new fields will be ignored ( still visible in _source)
+```
+dynamic: false
+```
+* set dynamic to "strict" , ES will reject unmapped fields
+
+* it can be in general "strict", but in a particular part "dynamic": true
+
+## dynamic templates
+value should be an object
+下面例子是指， 默认数字不采用long, 而是采用integer, 同理，对于string ,也可以设置避免同时text ,keywords
+* match and unmatch parameters 用来选择dynamic template 对应的fields
+* match/unmatch regex pattern can be used if widecard is not sufficient
+* path_match is for object full path, eg.  employer.name
+example:
+```
+PUT /dynamic_template_test
+{
+  "mappings": {
+    "dynamic_temples" : [
+      {
+        "integers" {
+          "match_mapping_type": "long"
+          "match": "^[a-z]",
+          "path_match": "employer.name.*"
+          “match_pattern": "regex"
+          "unmatch": "index2*",
+          "mapping": {
+            "type": "integer"
+          }
+        }
+      }
+      ]
+  }
+}
+```
+
+## mapping recommendations
+* dynamic mapping is convenient, but often not a good idea in production
+* optimized mappinig will save disk space
+* set dynamic to "strict" , not "false"
+* don't always map strings as both text and keyword
+* if you have full control, disable coercion
+* use integer rather than long to save disk, same for double <-> float
+* set doc_values -> false if you don't need sorting, aggregations and scripting
+* set norms to false if you don't need relevance scoring
+* set index to false if you don't need to filter on values ( you can still aggregations)
+
+## stemming & stop words
+* stemming reduces words to their room form ( stemming_analyzer )
+"i loved drinking bottles of wine on last years's vacation" -> "i love drink bottl of wine on last year vacat"
+* stop words, words that are filtered out during text analysis
+" a", "the", "at", "of", "on", the provides no value for relevance scoring
+"i love drink bottl of wine on last year vacat" -> "i love drink bottl wine last year vacat"
+
+## analyzer and search queries
+if stemming_analyzer is used, the query word will also be first stemmed
+
+## built-in analyzer
+**standard analyzer**  - splits text at word boundaries and removes punctuation
+it has * standard tokenizer * lowercase token filter * top token filter
+
+**simple analyzer**  - splits into tokens when encountering anything else than letters
+**white space analyzer**
+**keyword analyzer** leaves the input text intact
+**pattern analyzer** a regular expression is used to match token separators 
+**language specific analyzers** 
