@@ -97,3 +97,4 @@ you will have more risk than reward potential ( but high probability trading str
 1. profit/loss percentages
 2. time-based exits
 3. delta-based exits (**avoid holding trades to expiration**)
+
