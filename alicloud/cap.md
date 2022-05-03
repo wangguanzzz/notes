@@ -24,8 +24,15 @@ SSD共享块存储，用于集群 （类似于EFT）
 云企业网 - 融合VPC, vpn , 直连，跨区域，形成企业网络 （类似 transitgateway）
 VPN 网关
 
+## 对象存储OSS
 
-## deploy NFT
-* metamask
-* ipfs desktop
-* etf remix https://remix.ethereum.org
+存储空间的读写权限
+* 私有
+* 公共读
+* 公共读写
+
+文件ACL 可以继承存储空间
+可以授权访问： 当前账户的子账户， 其他账户， 匿名
+
+防盗链
+可以设置REFER 白名单， 来制定HTTPS表头
