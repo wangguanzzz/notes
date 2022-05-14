@@ -7,7 +7,7 @@ helm search repo rancher-stable/rancher --versions
 
 ## EKS install rancher steps:
 ```
-eksctl create cluster --name rancher-server   --version 1.20   --region ap-east-1 --nodegroup-name ranchernodes --nodes 1   --nodes-min 1   --nodes-max 1   --managed
+eksctl create cluster --name test   --version 1.20   --region ap-southeast-1 --nodegroup-name worknodes --nodes 1   --nodes-min 1   --nodes-max 1   --managed
 ```
 
 ```

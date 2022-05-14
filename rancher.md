@@ -28,6 +28,13 @@ externalURL: https://<ip>
 ## persistence 
 false
 ```
+helm upgrade --install harbor ./harbor --namespace harbor --create-namespace
+
+```
+helm install my-release bitnami/sonarqube
+helm upgrade --install sonarqube ./sonarqube --namespace sonarqube --create-namespace
+```
+
 4. access port https://<master-ip>:30003
 
 replication from docker busybox is library/busybox
