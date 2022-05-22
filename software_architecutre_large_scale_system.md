@@ -42,3 +42,35 @@ the SSL/TLS connection is quite costly because of hand shaking
 * static data caching
 * data format & compression ( look for proper protocal, binary protocals, like binary REST ) ( normally the transfer benefit > cpu cycles ) 
 * SSL session caching ( server ccan cache parameters that client transfer to server)
+
+## memory access latency
+* finite heap memory
+* GC ( run aggresively)
+* large heap memory > machine memory => OS will use disk (swapping)
+* Finite buffer on DB side
+
+## minimizing memory access latency
+* avoid memory bloat ( program level )
+* weak/soft reference ( when GC, it will gc first object with weak/soft reference)
+* smaller RAM processes is better than one big RAM process ( GC efficiency will be bad)
+* GA algorithm (1. batch process 型 (efficient)， 隔一段时间GC一次，停process， 2. real time type (life process).  正规伴随process GC， small pause time)
+* normalization 避免数据在数据库重复,使得同样RAM大小下，数据存放最多, compute over storage （如果数据可以算，就不要存） ( for buffer memory)
+
+## disk latency
+* logging
+* web content files
+* DB disk access 
+
+## minimizing disk access latency
+* logging 
+  - asynchronous logging    main thread do the processing, and logging thread do the logging, (一个小缺点，如果main thread挂了，最后几个statement可能没有被log thread 记录 )
+  - sequential & Batch IO   硬盘/RAM 访问分为sequential IO（fast）, random IO（slow）,   context swtiching CPU计算和读写之间的来回切换，越少越好， 所以几条log最好batch在一起
+* web content files
+  - web content caching, load balancer/ reverse proxy  把找static 的部分指向特定的CDN， dynamic part to applciation server
+  - page cache, zero copy
+* DB disk access 
+  - query optimization
+  - data caching
+  - schema optimization
+    (denomalizaiton vs nomalizaiton)
+    indices
