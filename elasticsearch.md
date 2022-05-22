@@ -544,6 +544,84 @@ it has * standard tokenizer * lowercase token filter * top token filter
 
 **simple analyzer**  - splits into tokens when encountering anything else than letters
 **white space analyzer**
-**keyword analyzer** leaves the input text intact
+**keyword analyzer** leaves the input text intact ( no-op analyzer )
 **pattern analyzer** a regular expression is used to match token separators 
 **language specific analyzers** 
+
+## create custom analyzers
+example of a html analyzer
+```
+PUT /<index name>
+{
+  "settings": {
+    "analysis": {
+      "analyzer": {
+        "my_custom_analyzer": {
+          "type": "custom",
+          "char_filter": ["html_strip"],
+          "tokenizer": "standard",
+          "filter": [
+            "lowercase",
+            "stop",
+            "asciifolding"
+          ]
+        }
+      }
+    }
+  }
+}
+```
+
+use:
+```
+POST /<index name>/_analyzer
+{
+  "analyzer": "my_custom_analyzer",
+  "text": "..."
+}
+```
+## adding analyzers to existing indices
+
+* open index 
+  - open index is available for indexing and search requests
+  - a closed index will refuse requests
+    - read and write requests are blocked
+    - necessory for perform some operations
+
+* none-dynamic setting
+  - dynamic setting can be changed without closing the index first
+    -requires no downtime
+  - static settings require the indext o be closed first
+    - the index will be briefly unavailable, analysis settings are static settings
+
+API to open/close the index
+```
+POST /<index name>/_open/close
+```
+
+how to handle the switch in critical systems:
+1. reindex documents into a new index
+2. create the new index with the updated settings
+3. use an index alias for the transition
+
+## update analyzers
+
+in query, user can override the analyzer parameter
+```
+GET /<index>/_search
+{
+  "query": {
+    "match": {
+      "description": {
+        "query": "that",
+        "analyzer": "keyword"
+      }
+    }
+  }
+}
+```
+更换index的analyzer先要close index, 然后再open, 看analyzer在setting 里面
+然后运行下面指令：
+```
+POST <index>/_update_by_query?conflicts=proceed
+```
