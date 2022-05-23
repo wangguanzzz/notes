@@ -72,5 +72,20 @@ the SSL/TLS connection is quite costly because of hand shaking
   - query optimization
   - data caching
   - schema optimization
-    (denomalizaiton vs nomalizaiton)
+    (denomalizaiton vs nomalizaiton) 通常情况选择normalization节约RAM， 但是如果disk latency太大，可以进行denormalization
     indices
+  - higher IOPS, RAID, SSD Disk
+
+## CPU Latency
+- inefficient algo
+- context switching
+
+## minimizing CPU latency
+- inefficient algo
+  1. efficient algo
+  2. efficient queries
+- context switching
+  1. batch/Async IO
+  2. single threaded model ( nodeJS) 适合high load with a lot of IO
+  3. thread pool size (thread 数量 和CPU的比例要合适)
+  4. mutli-process in virtual env （在大型机上，避免一个process过度占据CPU， 可以设置多个虚拟环境）
