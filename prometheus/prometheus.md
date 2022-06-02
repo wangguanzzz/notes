@@ -117,6 +117,7 @@ pushgateway setting
 request body:
 some_metric{label="val1"} 42
 
+```
 [Unit]
 Description=Prometheus Pushgateway
 Wants=network-online.target
@@ -130,3 +131,73 @@ ExecStart=/usr/local/bin/pushgateway
 
 [Install]
 WantedBy=multi-user.target
+```
+
+## recording rules
+recording rules allow you to pre-compute the values of expressions and queries and save the resuls as their own separate set of time-series data.
+
+specify one or more locations for rule files in prometheus.yml under rule_files
+
+enable rule files in prometheus.yml
+```
+rule_files:
+  - "/etc/prometheus/rules/*.yml"
+
+```
+
+rule file example
+```
+groups:
+- name: limedrop_gateway
+  rules:
+  - record: limedrop_gateway:cpu_usage
+    expr: sum(rate(node_cpu_seconds_total{instance='limedrop-gateway:9100',mode!='idle'}[5m])) * 100 / 2
+```
+
+# Alertmanager setup and configuration
+alertmanager 是 prometheus server外的一个单独的进程. 
+alerts are notifications that are triggered automatically by metrics data
+
+## alert manager install
+1. 创建alertmanager用户
+2. 下载binary
+3. 把需要的binary copy 到 /usr/local/bin
+4. chown alertmanager:alertmanager 下载的binary
+5. 建一个目录，用于存放配置文件 /etc/alertmanager, 把整个文件夹的权限设给特定用户
+6. 创建service 文件
+
+## HA alertmanager
+ in start option need --cluster.peer
+## Managing alert in alert manager
+- route
+- group ( consolidate multiple alerts into one)
+```
+route:
+  ...
+
+  routes:
+  - receiver: 'web.hook'
+    group_by: ['service']
+    match_re:
+      alertname: 'WebServer.*Down'
+```
+- inhibition ( the network connectivity alert suppresses all of ohter alerts)
+```
+inhibit_rules:
+
+  ...
+
+  - source_match_re:
+      alertname: 'WebServer.*Down'
+    target_match:
+      alertname: 'WebBadGateway'
+```
+- silences ( a simple way to temporarily turn off certain notification)
+
+## federation
+federation is the process of one Prom server scraping some or all time-series data from anohter Prometheus server.
+- hierarchical federation
+- cross-service federation
+
+## Prom security
+use a reverse proxy
