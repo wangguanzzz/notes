@@ -102,15 +102,29 @@ load_module modules/ngx_mail_module.so
 
 ## reverse proxy with proxy_pass
 use ngx_http_proxy_module  (proxy_pass)
+proxy_set_header can update the header
+
 ```
 server {
   ...
   location / {
     # to enable keep alive
     proxy_http_version 1.1;
+    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_set_header X-Real-IP $remote_addr;
+    # for web socket
+    proxy_set_header Upgrade $http_upgrade;
+    proxy_set_header Connection "upgrade";
+
     proxy_pass http://127.0.0.1:3000;
+  }
+
+  #for static file, ~* tilde * ignore upper/lower case
+  location ~* \.(js|css|png|jpe?g|gif) {
+    root /var/www/photos.example.com;
   }
 }
 ```
 
-
+## setup LEMP stack
+fastCGI is a binary protocal let server/client talk to each other

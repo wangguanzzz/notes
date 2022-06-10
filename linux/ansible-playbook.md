@@ -183,3 +183,33 @@ ansible-vault encrypt <file>
 retryfile 只是一些server的列表，也可以用此方法执行对于部分server的运行
 
 ignore_errors: yes 会让失败task继续往下走
+
+changed_when 设置changed 状态的条件
+failed_when 设置failed的条件，用于不明显的情况
+```yaml
+tasks:
+  - name: test
+    command: ...
+    register: cmd_output
+    changed_when: "'CHANGED' in cmd_ouput.stdout"
+    failed_when: "'FAIL' in cmd_output.stdout"
+```
+
+## error handling and rescue, debug
+it is like try catch finally in program
+```yaml
+tasks:
+  - name: test
+    block: 
+      - service:
+        name: "httpd"
+        state: started
+      register: service_status
+    rescue:
+      - debug:
+          var: service_status
+    # can omit
+    always:
+      - debug: 
+          msg: "always done"
+```
