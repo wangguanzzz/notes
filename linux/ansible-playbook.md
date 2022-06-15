@@ -213,3 +213,84 @@ tasks:
       - debug: 
           msg: "always done"
 ```
+
+## asynchronous task 
+在执行是ansible 断掉和目的机器的连接， 用于长时间任务，（longer than ssh timeout)
+```yaml
+tasks:
+  - name: run sleep.sh
+    command: /home/ansible/sleep.sh
+    # allow 60 seconds for execution, if exceed, ansible will kill the job
+    async: 60
+    # ansible will check every 10 seconds, if set poll to 0 , means ansible not check the result
+    poll: 10
+```
+
+## delegate playbook execution
+需要在代理机器上执行任务，例如让一个master node执行一个pool的配置
+```yaml
+tasks:
+  - name: run sleep.sh
+    command: /home/ansible/sleep.sh
+    async: 60
+    poll: 0
+    delegate_to: another_server
+```
+
+## parallelisum in playbooks
+by default, ansible will fork 5, -f or ansible.cfg
+
+run task on server one by one, it controls the batch number, it can be a list like 1 3 5, or "10%", "30%", "50%"
+```yaml
+hosts: all
+# if 10% fail, stop execution
+max_fail_percentage: 10
+serial: 1
+tasks:
+  ...
+```
+
+## run_once
+确保即使有多个server，task也只被执行一次,多用于执行sql
+```yaml
+tasks:
+  - name: run once task
+    ...
+    run_once: yes
+```
+
+## role
+ansible role hub website:
+https://galaxy.ansible.com/
+
+you can use ansible-galaxy command
+to 
+```
+# search role
+ansible-galaxy search <key word> 
+# install role, it would be downloaded into .ansible/roles
+ansible-galaxy install role_name
+
+```
+role is looked for also in /etc/ansible/roles
+
+## role demo
+
+创建role的框架
+in meta, you can define the dependency, allow_duplicates, etc
+
+invoke roles
+```yaml
+- hosts: all
+  become: yes
+  # option 1
+  roles: 
+    - /home/ansible/web # or just name
+  # option 2
+  tasks:
+    - name: use role
+      include_role:
+        name: ...
+
+```
+
