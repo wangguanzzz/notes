@@ -105,3 +105,13 @@ kubectl get destinationrules
 destination rules 定义所有的destination 和他们背后的version
 
 service rule 是route到destination的设定
+
+
+## istio policies
+mixer policy
+canary testing金丝雀test
+可以限制某个服务的quota,例如多少时间内访问多少次。rate limit
+```
+# check the rule
+kubectl get rule
+```
