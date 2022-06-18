@@ -52,3 +52,56 @@ kubectl apply -f < (istioctl kube-inject -f <original_k8s.yaml>)
 ```
 
 when need to access the real app, need to apply an istio gateway, (virutal svc)
+
+
+## inspecting the installation
+virutual service
+
+```yaml
+apiVersion: ..
+kind: VirtualService
+metadata: 
+  name: productpage
+spec: 
+  hosts:
+  - productpage
+  http:
+  - route:
+    - destination:
+        host: productpage
+        subset: v1
+```
+
+destniation role
+```yaml
+apiVersion: ..
+kind: DestinationRule
+metadata: 
+  name: productpage
+spec: 
+  hosts: productpage
+  subsets:
+  - name: v1
+    labels:
+      version: v1
+  - name: v2
+    labels:
+      version: v2
+```
+
+after istio is installed, it will have a istio-system namespace
+
+## istio routing
+istio has an ingressgateway in istio-system, that can be configured as nodeport, loadbalancer, etc.
+```
+kubectl get gateway
+```
+gateway pass to virtual service
+
+```
+kubectl get destinationrules
+```
+
+destination rules 定义所有的destination 和他们背后的version
+
+service rule 是route到destination的设定
