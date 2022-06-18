@@ -115,3 +115,6 @@ canary testing金丝雀test
 # check the rule
 kubectl get rule
 ```
+
+## loging in istio
+s
