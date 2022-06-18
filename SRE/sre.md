@@ -41,3 +41,11 @@ troubleshooting best practice
 * check the time error occur, log checking/ check the changes
 * get assumed reason
 * re-produce
+
+## error budget
+a quantitative meausrement shared between the product and SRE teams to balance innovation and stabilitys
+1. management buys into SLO
+2. SLO used to determine uptime for quarter
+3. Monitoring service measures actual uptime
+4. calculate difference between SLO and uptime
+5. push new releases if error budget allows
