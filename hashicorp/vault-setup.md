@@ -7,33 +7,40 @@ Note: At times, you will be making changes with root permissions. When doing so,
 Install and Configure the Consul Service
 Download, Unpack, and Move Consul to the Bin Directory
 Download Consul:
-
+```
 wget https://releases.hashicorp.com/consul/1.7.3/consul_1.7.3_linux_amd64.zip
+```
 Install unzip:
-
+```
 sudo apt install unzip
+```
 Unpack Consul:
-
+```
 unzip consul_1.7.3_linux_amd64.zip
+```
 Move the consul installation executable to the bin directory:
-
+```
 sudo mv consul /usr/bin
+```
 Verify the installation was successful:
-
+```
 consul
+```
 The output should list all of the available Consul commands.
 
 Create and Configure the Consul systemd Service
 Get and copy the IP address of the server:
-
+```
 ip addr show
+```
 Note: You will use this IP address again when configuring Vault, so you may want to paste it into a file or keep it copied in your clipboard for easier access later on.
 
 Using vim, create a systemd service file:
-
+```
 sudo vim /etc/systemd/system/consul.service
+```
 In the file, paste in the following configuration, replacing IP.ADDRESS.OF.SERVER with the IP address you just obtained:
-
+```
 [Unit]
 Description=Consul
 Documentation=https://www.consul.io/
@@ -45,65 +52,77 @@ LimitNOFILE=65536
 
 [Install]
 WantedBy=multi-user.target
+```
 Press Esc, type :wq, and hit Enter to save and exit the file.
 
 Create a directory for the configuration files:
-
+```
 sudo mkdir /etc/consul.d
+```
 Note: Creating a configuration file for the UI is optional. If you choose not to perform the following steps to do so, proceed to reloading the system.
 
 Using vim, create a JSON configuration file for the UI:
-
+```
 sudo vim /etc/consul.d/ui.json
+```
 In the file, paste in the following configuration:
-
+```
 {
   "addresses": {
    "http": "0.0.0.0"
    }
 }
+```
 Press Esc, type :wq, and hit Enter to save and exit the file.
 
 Reload, Start, Enable, and Verify the Consul Service
 Reload the system:
-
+```
 sudo systemctl daemon-reload
+```
 Start the Consul service:
-
+```
 sudo systemctl start consul
+```
 Enable the Consul service:
 
 sudo systemctl enable consul
 Verify the status of the Consul service:
-
+```
 sudo systemctl status consul
+```
 The output should indicate that the Consul service is active and running.
 
 Install and Configure the Vault Service
 Download, Unpack, and Move Vault to the Bin Directory
 Download Vault:
-
+```
 wget https://releases.hashicorp.com/vault/1.5.0/vault_1.5.0_linux_amd64.zip
+```
 Unpack Vault:
-
+```
 unzip vault_1.5.0_linux_amd64.zip
+```
 Move the Vault binary to the bin directory:
-
+```
 sudo mv vault /usr/bin
+```
 Create and Configure the Vault systemd Service
 Create a directory for the configuration file:
-
+```
 sudo mkdir /etc/vault/
+```
 Get and copy the IP address of the server:
 
 ip addr show
 Note: Alternately, if you still have the IP address accessible from when you configured Consul, you could just copy/paste the address from where you saved it.
 
 Using vim, create the configuration file:
-
+```
 sudo vim /etc/vault/config.hcl
+```
 In the file, paste in the following configuration, replacing Consul.IP.ADDRESS with the IP address you just obtained:
-
+```
 storage "consul" {
         address = "Consul.IP.ADDRESS:8500"
         path = "vault/"
@@ -113,13 +132,15 @@ listener "tcp" {
         tls_disable = 1
 }
 ui = true
+```
 Press Esc, type :wq, and hit Enter to save and exit the file.
 
 Using vim, create a systemd service file:
-
+```
 sudo vim /etc/systemd/system/vault.service
+```
 In the file, paste in the following configuration:
-
+```
 [Unit]
 Description=Vault
 Documentation=https://www.vault.io/
@@ -131,23 +152,17 @@ LimitNOFILE=65536
 
 [Install]
 WantedBy=multi-user.target
+```
 Press Esc, type :wq, and hit Enter to save and exit the file.
 
 Reload, Start, Enable, and Verify the Vault Service
 Reload the system:
-
+```
 sudo systemctl daemon-reload
-Start the Vault service:
-
 sudo systemctl start vault
-Enable the Vault service:
-
 sudo systemctl enable vault
-Verify the status of the Vault service:
-
 sudo systemctl status vault
-The output should indicate that the Vault service is active and running.
-
+```
 Connect to the Vault Service
 Using the dig command and the public IP address of the lab server (found on the lab credentials page), get and copy the fully qualified domain name (FQDN) of the server:
 
