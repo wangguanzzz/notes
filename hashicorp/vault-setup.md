@@ -79,16 +79,7 @@ Reload, Start, Enable, and Verify the Consul Service
 Reload the system:
 ```
 sudo systemctl daemon-reload
-```
-Start the Consul service:
-```
 sudo systemctl start consul
-```
-Enable the Consul service:
-
-sudo systemctl enable consul
-Verify the status of the Consul service:
-```
 sudo systemctl status consul
 ```
 The output should indicate that the Consul service is active and running.
