@@ -159,28 +159,34 @@ Using the dig command and the public IP address of the lab server (found on the 
 
 dig -x <PUBLIC_IP_ADDRESS>
 Set the Vault address for the current session, replacing DOMAIN with the FQDN you just obtained:
-
+```
 export VAULT_ADDR="http://<DOMAIN>"
+```
 Set the Vault address to be persistent upon each system boot, replacing DOMAIN with the same FQDN:
-
+```
 echo "export VAULT_ADDR=http://<DOMAIN>" >> ~/.bashrc
+```
 Install autocomplete for Vault commands:
-
+```
 vault -autocomplete-install
+```
 And then enable autocomplete:
-
+```
 complete -C /usr/bin/vault vault
+```
 Initialize and Access the Vault
 Initialize the Vault:
-
+```
 vault operator init
+```
 The output will include five Unseal Keys and an Initial Root Token that you will use to access your Vault. You will need to supply three keys to unseal the Vault.
 
 Note: It is important to save the keys and root token. If lost, access to the Vault will be lost. Best practice is to save the keys and token in a secure location.
 
 Run the unseal command with no arguments:
-
+```
 vault operator unseal
+```
 When prompted with Key (will be hidden):, copy and paste one of the keys provided and hit Enter.
 
 Repeat the process using two additional keys to unseal the Vault.
@@ -188,9 +194,8 @@ Repeat the process using two additional keys to unseal the Vault.
 Note: When the Vault has been successfully unsealed, the Sealed parameter will display as false in the returned output.
 
 Log in to the Vault using the root token that was provided:
-
+```
 vault login <ROOT_TOKEN>
+```
 Vault will notify you if you have successfully authenticated and are logged in.
 
-Conclusion
-Congratulations — you've completed this hands-on lab!
