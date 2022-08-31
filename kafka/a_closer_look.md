@@ -8,3 +8,14 @@ leader replica (it is actually the partition itself)
 follower replica 
 
 don't put two replica on same rack (physical server)
+
+## handling requests
+- acceptor thread: creates the connection from client to broker
+- processor thread: takes reqeusts from clients and places into request queue
+- IO thread: processes the requests in thre request queue
+- request Queue: requests waiting to be processed
+- response queue: requests waiting to be sent back to the clients
+
+the comsumer request data can set a min and max mesasage number
+
+# data delivery
