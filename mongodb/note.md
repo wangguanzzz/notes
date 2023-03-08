@@ -31,10 +31,69 @@ data import/export: mongoimport, mongoexport
 diagnostic tools: mongostat, mongotop
 gridfs tools: mongofiles
 
+## aggregation
+1. $match stage
+```
+db.articles.aggregate({"$match": { "author": "dave" } })
+
+```
+2. group stage
+```
+raw data:
+{"_id": 1, "item": "abc", "price": NumberDecimal("10"), "quantity： 10}
+
+db.sales.aggregate([
+    {
+        "$group": {"_id": "$item", "totalSaleAmount": {"$sum": {"$multiply": ["$price", "$quality" ] }}}
+    },
+    {
+        "$match": { "totalSaleAmount": {"$gte": 100} }
+    }
+])
+```
+3. project stage
+```
+# only keep title and author fields
+db.books.aggregate(
+    { "$project": {"_id": 0 ,"title": 1, "isbn" : {"publisher": { "$substr": ["$ibsn", 0, 3]}  , "lastName":"$author.last"}}}
+)
+```
+4. collstats stage
+latencyStats - reports latency stats
+storageStats - storage stats
+count - totoal number of documents
+queryExecStats - total number of query
+
+```
+db.lease.aggregate(
+    [
+        {"$collStats": { "latencyStats":  {"histograms": true} } }
+    ]
+)
+
+db.lease.aggreate(
+    [
+        {
+            "$collStats": {"storageStats": {"scale": 1024*1024, "count": {} }}
+        }
+    ]
+)
+db.lease.aggregate(
+    [{"$collStats": {"queryExecStats": {} } }]
+)
+```
+5. indexStats stage
+```
+db.lease.aggregate(
+    [{"$indexStats": {} }]
+)
+```
+
 ## RS
 primary node, secondary node, arbitor
 * when start mongod, need to add --replSet <rs_name>
 * when RS is all up (3 nodes)
+```
 rs.initiate({
     "_id": <rs_name>,
     "version": 1,
@@ -45,3 +104,18 @@ rs.initiate({
     ]
 
 })
+```
+
+## write concern
+```
+db.products.insert({"item“： ”something"}, {"writeconcern": {"w":"majority","wtimeout": 100}})
+```
+
+## read preference
+```
+cursor.readPref(mode, tagSet, hedgeOptions)
+Mongo.readPref(mode, tagSet(array of pref), hedgeOptions)
+
+db.products.find().readPref("secondary",[{"datacenter": "B"}])
+
+```
