@@ -88,7 +88,27 @@ db.lease.aggregate(
     [{"$indexStats": {} }]
 )
 ```
+6. set stage
+add new fields to the documents
+7. unset stage
+removes/excludes fields from documents
+## mongdb index
+2. type of index 
+single field index
+compound index
+multikey index ( index on arrays)
+geospatial index
+text index
+hashed index ( support hash based sharding )
+wildcard index ( support query against arbitrary fields)
 
+```
+db.produects.createIndex({"item":1 }) #1 assending index
+```
+3. listing the indexes
+```
+db.<collection>.getIndexes()
+```
 ## RS
 primary node, secondary node, arbitor
 * when start mongod, need to add --replSet <rs_name>
